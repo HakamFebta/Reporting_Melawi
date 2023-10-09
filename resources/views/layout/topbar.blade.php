@@ -2,23 +2,15 @@
     <div class="d-flex">
         <!-- LOGO -->
         <div class="navbar-brand-box">
-            {{-- <a href="" class="logo logo-dark">
-                <span class="logo-sm">
-                    <img src="{{ asset('assets/images/logo.svg') }}" alt="" height="22">
-                </span>
-                <span class="logo-lg">
-                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
-                </span>
-            </a>
 
             <a href="" class="logo logo-light">
                 <span class="logo-sm">
-                    <img src="{{ asset('assets/images/logo-light.svg') }}" alt="" height="22">
+                    <img src="{{ asset('assets/logo/RM_MELAWI.png') }}" alt="" height="50">
                 </span>
                 <span class="logo-lg">
-                    <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="19">
+                    <img src="{{ asset('assets/logo/RM_MELAWI.png') }}" alt="" height="50">
                 </span>
-            </a> --}}
+            </a>
         </div>
 
         <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
@@ -390,7 +382,8 @@
         <div class="dropdown d-inline-block">
             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="d-none d-xl-inline-block ms-5" key="{{ Auth::user()->nama }}"> {{ Auth::user()->nama }}</span>
+                <span class="d-none d-xl-inline-block ms-5" key="{{ Auth::user()->nama }}">
+                    {{ Auth::user()->nama }}</span>
                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end">
