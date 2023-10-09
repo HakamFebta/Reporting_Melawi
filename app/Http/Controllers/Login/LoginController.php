@@ -16,7 +16,7 @@ class LoginController extends Controller
     public function index()
     {
         $data = [
-            'daerah' => DB::table('Config_aplikasi')->select('nama', 'kabupaten')->first()
+            'daerah' => DB::connection('sqlsrv')->table('Config_aplikasi')->select('nama', 'kabupaten')->first()
         ];
         return view('login.index')->with($data);
     }
@@ -38,7 +38,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            $user = DB::table('Users')
+            $user = DB::connection('sqlsrv')->table('Users')
                 ->where(['username' => $request->username])
                 ->first();
             if ($user->status == 1) {

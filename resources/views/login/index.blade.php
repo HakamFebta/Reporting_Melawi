@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    <img src="{{ asset('assets/images/profile-img.png') }}" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 
     <!-- App js -->
-    <script src="assets/js/app.js"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 
 <!-- Mirrored from themesbrand.com/skote/layouts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 05 Aug 2022 04:38:30 GMT -->
