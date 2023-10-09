@@ -5,10 +5,10 @@
 
             <a href="" class="logo logo-light">
                 <span class="logo-sm">
-                    <img src="{{ asset('assets/logo/RM_MELAWI.png') }}" alt="" height="50">
+                    <img src="{{ asset('assets/logo/RM_MELAWI2.png') }}" alt="" height="48">
                 </span>
                 <span class="logo-lg">
-                    <img src="{{ asset('assets/logo/RM_MELAWI.png') }}" alt="" height="50">
+                    <img src="{{ asset('assets/logo/RM_MELAWI2.png') }}" alt="" height="48">
                 </span>
             </a>
         </div>
