@@ -20,14 +20,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="listdata" class="table table-bordered dt-responsive nowrap w-100">
+                            <table id="listdata" class="table table-striped table-bordered w-100">
                                 <thead>
                                     <tr>
                                         <th style="width:10px;">No</th>
                                         <th style="width:50px;">No Transaksi</th>
-                                        <th style="width:500px;">Judul</th>
-                                        <th style="width:100px;">Jenis</th>
-                                        <th style="width:10px;text-align:center;">Aksi</th>
+                                        <th style="width:100px;">Judul</th>
+                                        <th style="width:10px;">Jenis</th>
+                                        <th style="width:20px;text-align:center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -697,6 +697,7 @@
             table_list = $('#listdata').DataTable({
                 processing: true,
                 searching: true,
+                scrollX: true,
                 lengthMenu: [
                     [5, 10, 25, 50, 100, -1],
                     [5, 10, 25, 50, 100, "All"]

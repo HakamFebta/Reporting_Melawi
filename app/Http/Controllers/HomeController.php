@@ -77,12 +77,12 @@ class HomeController extends Controller
                     if ($row->status == '1') {
                         $btn = '<form autocomplete="off">
                             <div class="form-check form-switch form-switch-md">
-                            <input class="form-check-input" type="checkbox" name="statususername" onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" id="statususername1" />
+                            <input class="form-check-input" style="margin-left:5px;" type="checkbox" name="statususername" onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" id="statususername1" />
                             </form>';
                     } else if ($row->status == '0') {
                         $btn = '<form autocomplete="off">
                             <div class="form-check form-switch form-switch-md">
-                            <input class="form-check-input " type="checkbox" name="statususername" onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" id="statususername1" checked />
+                            <input class="form-check-input" style="margin-left:5px;" type="checkbox" name="statususername" onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" id="statususername1" checked />
                             </form>';
                     };
                     return $btn;

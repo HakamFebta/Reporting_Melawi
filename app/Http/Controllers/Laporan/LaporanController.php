@@ -49,7 +49,7 @@ class LaporanController extends Controller
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
                     $btn =
-                        $btn = '<button type="button" style="margin-left:3px;margin-right:4px;" id="editdata"; class="btn btn-warning btn-sm buttonedit-laporan" title="Edit data" onclick="editdata(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-pencil"></i></button>';
+                        $btn = '<button type="button" style="margin-left:5px;margin-right:4px;" id="editdata"; class="btn btn-warning btn-sm buttonedit-laporan" title="Edit data" onclick="editdata(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-pencil"></i></button>';
                     $btn .= '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-printer"></i></button>';
                     $btn .= '<button type="button" class="btn btn-danger btn-sm button-hapus" title="Hapus data" onclick="deletedata(\'' . $row->no_transaksi . '\',\'' . $row->jenis . '\')"/><i class="bx bxs-trash"></i></button>';
 

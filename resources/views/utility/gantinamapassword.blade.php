@@ -24,16 +24,16 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="tblusername" class="table table-bordered dt-responsive nowrap w-100">
+                            <table id="tblusername" class="table table-striped table-bordered w-100">
                                 <meta name="csrf-token" content="{{ csrf_token() }}">
                                 @method('put')
                                 <thead>
                                     <tr>
-                                        <th style="width:180px;">No</th>
+                                        <th style="width:10px;">No</th>
                                         <th style="width:350px;" hidden>Id Users </th>
-                                        <th style="width:350px;">Nama </th>
-                                        <th style="width:350px;">Username</th>
-                                        <th style="width:350px;">Jenis</th>
+                                        <th style="width:200px;">Nama </th>
+                                        <th style="width:200px;">Username</th>
+                                        <th style="width:200px;">Jenis</th>
                                         <th style="width:120px;text-align:center">Aksi</th>
 
                                     </tr>
@@ -133,6 +133,7 @@
             table = $('#tblusername').DataTable({
                 processing: true,
                 searching: true,
+                scrollX: true,
                 lengthMenu: [
                     [5, 10, 25, 50, 100, -1],
                     [5, 10, 25, 50, 100, "All"]

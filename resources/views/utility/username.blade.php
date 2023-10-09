@@ -12,57 +12,70 @@
         <div class="container-fluid">
             <!-- start page title -->
             <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">List Users</h4>
-                        {{-- <button class="btn btn-info tmbh" style="width:100px;" data-toggle="modal" type="button"><i
-                                class="bx bx-plus">&nbsp;Tambah</i></button> --}}
-                        <div class="page-title-right">
-                            <form autocomplete="off">
-                                <div class="form-check form-switch form-switch-md">
-                                    <input class="form-check-input" type="checkbox" id="statususernameall"
-                                        name="statususernameall">
-                                    <label class="form-check-label" for="statususernameall">Aksi semua</label>
-                                </div>
-                            </form>
-                        </div>
+                <div class="col-4 mb-3">
+                    {{-- <div class="page-title-box d-sm-flex align-items-center justify-content-between"> --}}
+                    <h5 class="mb-sm-0 font-size-18">List Users</h5>
+                </div>
+                <div class="col-4 mb-3" align="right">
+                    <button class="btn btn-info tmbh" style="width:100px;" type="button"><i
+                            class="bx bx-plus">&nbsp;Tambah</i></button>
+                </div>
+                <div class="col-4 mb-3 justify-content-around">
+                    <div class="row">
+                        <form autocomplete="off">
+                            <div class="form-check form-switch form-switch-md">
+                                <input class="form-check-input justify-content-around" type="checkbox"
+                                    id="statususernameall" name="statususernameall">
+                                <label class="form-check-label justify-content-around" for="statususernameall">Aksi
+                                    semua</label>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
-
-            <!-- end page title -->
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <table id="tblusername" class="table table-bordered dt-responsive nowrap w-100">
-                                <meta name="csrf-token" content="{{ csrf_token() }}">
-                                @method('put')
-                                <thead>
-                                    <tr>
-                                        <th style="width:180px;">No</th>
-                                        <th style="width:350px;" hidden>Id Users</th>
-                                        <th style="width:350px;" hidden>Jenis</th>
-                                        <th style="width:350px;" hidden>Roles</th>
-                                        <th style="width:350px;" hidden>Nama</th>
-                                        <th style="width:350px;">Username</th>
-                                        <th style="width:350px;">Type</th>
-                                        <th style="width:50px;text-align:center">Aktif</th>
-                                        <th style="width:50px;text-align:center">Aksi</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-
+                {{-- <div class="col-4 mb-3 bg-light">
+                    <div class="row">
+                        <div class="col-md-12 align-right">
+                            <button type="button" class="btn btn-primary float-right">Cancel</button>
+                            <button type="button" class="btn btn-warning float-right">Save</button>
                         </div>
                     </div>
-                </div> <!-- end col -->
-            </div> <!-- end row -->
+                </div> --}}
+            </div>
+        </div>
 
-        </div> <!-- container-fluid -->
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="tblusername" class="table table-striped table-bordered w-100">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            @method('put')
+                            <thead>
+                                <tr>
+                                    <th style="width:30px;">No</th>
+                                    <th style="width:350px;" hidden>Id Users</th>
+                                    <th style="width:350px;" hidden>Jenis</th>
+                                    <th style="width:350px;" hidden>Roles</th>
+                                    <th style="width:350px;" hidden>Nama</th>
+                                    <th style="width:200px;">Username</th>
+                                    <th style="width:100px;">Type</th>
+                                    <th style="width:10px;text-align:center">Aktif</th>
+                                    <th style="width:70px;text-align:center">Aksi</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
     </div>
 
     <!-- Modal Tambah -->
@@ -170,6 +183,7 @@
             table = $('#tblusername').DataTable({
                 processing: true,
                 searching: true,
+                scrollX: true,
                 lengthMenu: [5, 10, 25, 50, 75, 100],
                 ajax: {
                     url: "{{ route('utility.listdatausername') }}",
@@ -218,7 +232,7 @@
                         data: null,
                         orderable: false,
                         render: (data, type, row, meta) =>
-                            `<button type="button" style="margin-left:2px;margin-right:3px;" class="btn btn-warning btn-sm buttonedit-data" title="Edit Username" data-toggle="modal" onClick="editdata('${data.id_user}','${data.jenis}','${data.roles}','${data.username}')"/><i class="bx bx-pencil"></i></button>` +
+                            `<button type="button" style="margin-left:20px;margin-right:3px;" class="btn btn-warning btn-sm buttonedit-data" title="Edit Username" data-toggle="modal" onClick="editdata('${data.id_user}','${data.jenis}','${data.roles}','${data.username}')"/><i class="bx bx-pencil"></i></button>` +
                             `<button type="button" class="btn btn-danger btn-sm buttonhps-data" data-toggle="modal" onClick="hapusdata('${data.id_user}')" title="Hapus Username"/><i class="bx bxs-trash"></i></button>`,
                     }
                 ],
