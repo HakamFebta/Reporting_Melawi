@@ -10,72 +10,56 @@
 
     <div class="page-content">
         <div class="container-fluid">
-            <!-- start page title -->
             <div class="row">
-                <div class="col-4 mb-3">
-                    {{-- <div class="page-title-box d-sm-flex align-items-center justify-content-between"> --}}
+                <div class="col-sm mb-2">
                     <h5 class="mb-sm-0 font-size-18">List Users</h5>
                 </div>
-                <div class="col-4 mb-3" align="right">
-                    <button class="btn btn-info tmbh" style="width:100px;" type="button"><i
-                            class="bx bx-plus">&nbsp;Tambah</i></button>
+                <div class="col-sm-1 mb-2">
+                    <button class="btn btn-info tmbh" style="width:90px;" type="button"><i
+                            class="bx bx-plus">Tambah</i></button>
                 </div>
-                <div class="col-4 mb-3 justify-content-around">
-                    <div class="row">
-                        <form autocomplete="off">
-                            <div class="form-check form-switch form-switch-md">
-                                <input class="form-check-input justify-content-around" type="checkbox"
-                                    id="statususernameall" name="statususernameall">
-                                <label class="form-check-label justify-content-around" for="statususernameall">Aksi
-                                    semua</label>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-sm-3 mb-2">
+                    <form autocomplete="off">
+                        <div class="form-check form-switch form-switch-md">
+                            <input class="form-check-input" style="float: right;" type="checkbox" id="statususernameall"
+                                name="statususernameall">
+                            <label class="form-check-label justify-content-md-end" for="statususernameall">Aksi
+                                semua</label>
+                        </div>
+                    </form>
                 </div>
-                {{-- <div class="col-4 mb-3 bg-light">
-                    <div class="row">
-                        <div class="col-md-12 align-right">
-                            <button type="button" class="btn btn-primary float-right">Cancel</button>
-                            <button type="button" class="btn btn-warning float-right">Save</button>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="tblusername" class="table table-striped table-bordered w-100">
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
+                                @method('put')
+                                <thead>
+                                    <tr>
+                                        <th style="width:30px;">No</th>
+                                        <th style="width:350px;" hidden>Id Users</th>
+                                        <th style="width:350px;" hidden>Jenis</th>
+                                        <th style="width:350px;" hidden>Roles</th>
+                                        <th style="width:350px;" hidden>Nama</th>
+                                        <th style="width:200px;">Username</th>
+                                        <th style="width:100px;">Type</th>
+                                        <th style="width:10px;text-align:center">Aktif</th>
+                                        <th style="width:70px;text-align:center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div> --}}
-            </div>
-        </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
 
-        <!-- end page title -->
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="tblusername" class="table table-striped table-bordered w-100">
-                            <meta name="csrf-token" content="{{ csrf_token() }}">
-                            @method('put')
-                            <thead>
-                                <tr>
-                                    <th style="width:30px;">No</th>
-                                    <th style="width:350px;" hidden>Id Users</th>
-                                    <th style="width:350px;" hidden>Jenis</th>
-                                    <th style="width:350px;" hidden>Roles</th>
-                                    <th style="width:350px;" hidden>Nama</th>
-                                    <th style="width:200px;">Username</th>
-                                    <th style="width:100px;">Type</th>
-                                    <th style="width:10px;text-align:center">Aktif</th>
-                                    <th style="width:70px;text-align:center">Aksi</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div> <!-- end col -->
-        </div> <!-- end row -->
-
-    </div> <!-- container-fluid -->
+        </div> <!-- container-fluid -->
     </div>
 
     <!-- Modal Tambah -->
@@ -261,10 +245,17 @@
             // });
 
             $('.editjenis').select2({
-                dropdownParent: $('#modaledit')
+                dropdownParent: $('#modaledit'),
+                theme: "bootstrap-5",
+                allowClear: true,
+                placeholder: "Pilih Jenis"
+
             });
             $('.editpengguna').select2({
-                dropdownParent: $('#modaledit')
+                dropdownParent: $('#modaledit'),
+                theme: "bootstrap-5",
+                allowClear: true,
+                placeholder: "Pilih Pengguna"
             });
 
             $('.update-data').on('click', function() {
