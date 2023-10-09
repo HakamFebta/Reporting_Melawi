@@ -390,7 +390,7 @@
         <div class="dropdown d-inline-block">
             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="d-none d-xl-inline-block ms-5" key="t-henry"> {{ Auth::user()->nama }}</span>
+                <span class="d-none d-xl-inline-block ms-5" key="{{ Auth::user()->nama }}"> {{ Auth::user()->nama }}</span>
                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end">
