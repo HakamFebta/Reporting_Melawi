@@ -37,16 +37,24 @@
     <br>
     <table style="width:98%;border-collapse: collapse;font-size:medium" align="center" border="1">
         <tr>
-            <td style="text-align:center; width:6%;">No</td>
-            <td style="text-align:center; width:16%;">Nama SKPD</td>
-            <td style="text-align:center; width:14%;">Nama Bidang Urusan</td>
-            <td style="text-align:center; width:14%;">Nama Program</td>
-            <td style="text-align:center;width:15%;">Nama Kegiatan</td>
-            <td style="text-align:center;width:15%;">Nama Sub Kegiatan</td>
-            <td style="text-align:center;width:10%;">Anggaran</td>
-            <td style="text-align:center;width:10%;">Realisasi</td>
+            <th style="text-align:center; width:6%;">No</th>
+            <th style="text-align:center; width:16%;">Nama SKPD</th>
+            <th style="text-align:center; width:14%;">Nama Bidang Urusan</th>
+            <th style="text-align:center; width:14%;">Nama Program</th>
+            <th style="text-align:center;width:15%;">Nama Kegiatan</th>
+            <th style="text-align:center;width:15%;">Nama Sub Kegiatan</th>
+            <th style="text-align:center;width:10%;">Anggaran</th>
+            <th style="text-align:center;width:10%;">Realisasi</th>
         </tr>
+        @php
+            $tot_anggaran = 0;
+            $tot_realisasi = 0;
+        @endphp
         @foreach ($hasilsub as $hasilsub)
+            @php
+                $tot_anggaran += $hasilsub->anggaran;
+                $tot_realisasi += $hasilsub->realisasi;
+            @endphp
             <tr>
                 <td style="text-align:center;">{{ $loop->iteration }}</td>
                 <td style="padding-left:10px;">{{ $hasilsub->nm_skpd }}</td>
@@ -59,6 +67,11 @@
                 </td>
             </tr>
         @endforeach
+        <tr>
+            <td style="text-align:center;" colspan="6">TOTAL</td>
+            <td style="text-align:center;">{{ number_format($tot_anggaran, 2, ',', '.') }}</td>
+            <td style="text-align:center;">{{ number_format($tot_realisasi, 2, ',', '.') }}</td>
+        </tr>
     </table>
     <br>
 
