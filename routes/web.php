@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Login\LoginController;
-use App\Http\Controllers\master\BukuController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Laporan\LaporanController;
 use App\Http\Controllers\Laporan\LRAController;
+use App\Http\Controllers\master\TandaTanganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,16 +67,5 @@ Route::get('cetakdataprogram', [LaporanController::class, 'cetakdataprogram'])->
 Route::get('cetakdatakegiatan', [LaporanController::class, 'cetakdatakegiatan'])->name('laporananggaran.cetakdatakegiatan');
 // });
 
-
-
-
-
-
-
-//
-Route::prefix('master')->group(function () {
-    Route::get('masterbuku', [BukuController::class, 'index'])->name('master.masterbuku');
-    Route::post('listdata', [BukuController::class, 'listdata'])->name('master.listdata');
-    Route::post('simpan_data', [BukuController::class, 'simpan_data'])->name('master.simpan_data');
-    Route::get('create', [BukuController::class, 'create'])->name('master.create');
-});
+// Master Tanda Tangan
+Route::get('tandatangan', [TandaTanganController::class, 'index'])->name('tandatangan');
