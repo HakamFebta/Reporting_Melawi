@@ -396,6 +396,7 @@ class LaporanController extends Controller
             return response()->json(['pesan' => 'Berhasil dihapus']);
         } catch (\Throwable $th) {
             DB::rollBack();
+            return response()->json(['pesan' => 'Gagal dihapus']);
         }
     }
 }

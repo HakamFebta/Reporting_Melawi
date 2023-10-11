@@ -28,21 +28,22 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('reporting.dashboard')->middleware('auth');
 // });
 
-//User
-// Route::prefix('utility')->group(function () {
 // Username
-Route::get('/username', [HomeController::class, 'username'])->name('utility.username');
-Route::post('/listdatausername', [HomeController::class, 'listdatausername'])->name('utility.listdatausername');
-Route::post('/whereupdateusername', [HomeController::class, 'whereupdateusername'])->name('utility.whereupdateusername');
-Route::put('/updatestatususername', [HomeController::class, 'updatestatususername'])->name('utility.updatestatususername');
-Route::post('/updatestatususernameall', [HomeController::class, 'updatestatususernameall'])->name('utility.updatestatususernameall');
+Route::get('username', [HomeController::class, 'username'])->name('utility.username');
+Route::post('listdatausername', [HomeController::class, 'listdatausername'])->name('utility.listdatausername');
+Route::post('whereupdateusername', [HomeController::class, 'whereupdateusername'])->name('utility.whereupdateusername');
+Route::put('updatestatususername', [HomeController::class, 'updatestatususername'])->name('utility.updatestatususername');
+Route::post('updatestatususernameall', [HomeController::class, 'updatestatususernameall'])->name('utility.updatestatususernameall');
+Route::post('simpandatausername', [HomeController::class, 'simpandatausername'])->name('utility.simpandatausername');
+Route::post('hapususername', [HomeController::class, 'hapususername'])->name('utility.hapususername');
+
 //Ganti Nama
 Route::get('/gantinama', [HomeController::class, 'gantinama'])->name('utility.gantinama');
 Route::post('/listdatausernameall', [HomeController::class, 'listdatausernameall'])->name('utility.listdatausernameall');
 Route::post('/updateusername', [HomeController::class, 'updateusername'])->name('utility.updateusername');
 //Ganti Password
 Route::post('/updatepassword', [HomeController::class, 'updatepassword'])->name('utility.updatepassword');
-// });
+
 
 
 // Laporan Anggaran

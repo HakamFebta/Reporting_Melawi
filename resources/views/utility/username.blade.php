@@ -62,27 +62,7 @@
         </div> <!-- container-fluid -->
     </div>
 
-    <!-- Modal Tambah -->
-    <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Modal Edit -->
     <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -152,19 +132,64 @@
             </div>
         </div>
     </div>
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="tmbahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Username</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newModalForm" class="form-control">
+                        <div class="form-group">
+                            <label class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" id="tmbhnama" name="tmbhnama"
+                                placeholder="Isikan Nama">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Username</label>
+                            <input type="text" class="form-control" id="tmbhusername" name="tmbhusername"
+                                placeholder="Isikan Username">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Isikan password" id="tmbhpassword"
+                                name="tmbhpassword">
+                        </div>
+                        <div class="form-group mt-2">
+                            <button type="button" class="btn btn-primary simpandata">Simpan</button>
+                        </div>
+                    </form>
+                    <div class="form-group mt-2 psnsimpan" hidden="true">
+                        <div class="alert alert-block text-center" role="alert" id="pesansimpan">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 {{-- JS --}}
 @section('js')
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
-        var table;
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            table = $('#tblusername').DataTable({
+            var table = $('#tblusername').DataTable({
                 processing: true,
                 searching: true,
                 scrollX: true,
@@ -217,7 +242,7 @@
                         orderable: false,
                         render: (data, type, row, meta) =>
                             `<button type="button" style="margin-left:20px;margin-right:3px;" class="btn btn-warning btn-sm buttonedit-data" title="Edit Username" data-toggle="modal" onClick="editdata('${data.id_user}','${data.jenis}','${data.roles}','${data.username}')"/><i class="bx bx-pencil"></i></button>` +
-                            `<button type="button" class="btn btn-danger btn-sm buttonhps-data" data-toggle="modal" onClick="hapusdata('${data.id_user}')" title="Hapus Username"/><i class="bx bxs-trash"></i></button>`,
+                            `<button type="button" class="btn btn-danger btn-sm buttonhps-data" data-toggle="modal" onClick="hapusdata('${data.id_user}','${data.username}')" title="Hapus Username"/><i class="bx bxs-trash"></i></button>`,
                     }
                 ],
             });
@@ -261,6 +286,8 @@
             $('.update-data').on('click', function() {
                 $('#edit_iduser').val();
                 var editjenis = $('.editjenis').val();
+                // alert(editjenis);
+                // return;
                 let editpengguna = $('.editpengguna').val();
                 if (editjenis == '' || editpengguna == '') {
                     alert('Pilihan masih kosong');
@@ -297,6 +324,103 @@
             });
 
 
+            //Modal Tambah
+            $('#tmbahmodal').modal({
+                backdrop: "static"
+            });
+            $('.close').on('click', function() {
+                $('#tblusername').DataTable().ajax.reload();
+                kosongtambah();
+            });
+            $('.tmbh').on('click', function() {
+                $('#tmbahmodal').modal('show');
+            });
+
+            // Action Tambah
+            $('.simpandata').on('click', function() {
+                $('.simpandata').submit();
+                if ($('#tmbhnama').val() == '' || $('#tmbhusername').val() == '' || $('#tmbhpassword')
+                    .val() == '') {
+                    return;
+                }
+                let username = $('#tmbhusername').val()
+                username = username.replace(' ', '_');
+                let password = $('#tmbhpassword').val()
+                password = password.replace(' ', '');
+
+                let data = {
+                    nama: $('#tmbhnama').val(),
+                    username: username,
+                    password: password,
+                }
+                if (data) {
+                    $.ajax({
+                        url: "{{ route('utility.simpandatausername') }}",
+                        type: 'post',
+                        data: ({
+                            data: data
+                        }),
+                        beforeSend: function() {
+                            $('.simpandata').prop('disabled', true);
+                        },
+                        success: function(d) {
+                            $(".psnsimpan").attr("hidden", false);
+                            if (d.pesan == 1) {
+                                $('#pesansimpan').removeClass('alert-success');
+                                $('#pesansimpan').addClass(
+                                    'alert-warning');
+                                $('#pesansimpan').html('Username Sudah terpakai');
+                            } else if (d.pesan == 0) {
+                                $('#pesansimpan').removeClass('alert-warning');
+                                $('#pesansimpan').addClass(
+                                    'alert-success alert-block text-center');
+                                $('#pesansimpan').html('Berhasil Tersimpan');
+                            }
+                            $("#pesansimpan").fadeTo(2000, 500).slideUp(500, function() {
+                                $("#pesansimpan").slideUp(500);
+                            });
+                        },
+                        complete: function() {
+                            $('.simpandata').prop('disabled', false);
+                            $('#tblusername').DataTable().ajax.reload();
+                            kosongtambah();
+                        },
+                    });
+                }
+
+            });
+
+
+            //    Validate
+            $("#newModalForm").validate({
+                rules: {
+                    tmbhnama: {
+                        required: true,
+                        minlength: 5
+                    },
+                    tmbhusername: {
+                        required: true,
+                        minlength: 5
+                    },
+                    tmbhpassword: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    tmbhnama: {
+                        required: "* isikan nama",
+                        minlength: "Panjang data minimal 5 karakter"
+                    },
+                    tmbhusername: {
+                        required: "* isikan Username",
+                        minlength: "Panjang data minimal 5 karakter"
+                    },
+                    tmbhpassword: {
+                        required: "* isikan Password",
+                    },
+                }
+            });
+
         });
 
         function editdata(id_user, jenis, roles, username) {
@@ -308,8 +432,25 @@
         }
 
 
-        function hapusdata(id_user) {
-            alert(id_user);
+        function hapusdata(id_user, username) {
+            let confirme = confirm("Yakin menghapus username " + username + " ?");
+            if (confirme == true) {
+                $.ajax({
+                    url: "{{ route('utility.hapususername') }}",
+                    type: 'POST',
+                    data: ({
+                        "_token": "{{ csrf_token() }}",
+                        id_user: id_user
+                    }),
+                    success: function(d) {
+                        if (d.pesan) {
+                            $('#tblusername').DataTable().ajax.reload();
+                        }
+                    },
+                });
+            } else {
+                $('#tblusername').DataTable().ajax.reload();
+            }
         }
 
         function ubahStatus(id_user, username, status) {
@@ -336,6 +477,17 @@
             $('.editjenis').val(null).trigger('change');
             $('.editpengguna').val(null).trigger('change');
         }
+
+        function kosongtambah() {
+            $('#newModalForm').validate().resetForm();
+            $('#tmbhnama').val('');
+            $('#tmbhusername').val('');
+            $('#tmbhpassword').val('');
+
+        }
     </script>
 @endsection
+
+
+
 {{-- '<span class="icon-drag"><span class="hide-id-drop">' + data + '</span></span>'; --}}

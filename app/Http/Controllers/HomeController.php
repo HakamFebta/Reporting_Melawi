@@ -75,44 +75,51 @@ class HomeController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     if ($row->status == '1') {
-                        $btn = '<form autocomplete="off">
+                        $btn = '<form autocomplete="on">
                             <div class="form-check form-switch form-switch-md">
-                            <input class="form-check-input" style="margin-left:5px;" type="checkbox" name="statususername" onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" id="statususername1" />
+                            <input class="form-check-input" style="margin-left:5px;" type="checkbox"  onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" />
                             </form>';
                     } else if ($row->status == '0') {
-                        $btn = '<form autocomplete="off">
+                        $btn = '<form autocomplete="on">
                             <div class="form-check form-switch form-switch-md">
-                            <input class="form-check-input" style="margin-left:5px;" type="checkbox" name="statususername" onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" id="statususername1" checked />
+                            <input class="form-check-input" style="margin-left:5px;" type="checkbox"  onChange="ubahStatus(\'' . $row->id_user . '\',\'' . $row->username . '\',\'' . $row->status . '\')" checked />
                             </form>';
                     };
                     return $btn;
                 })
                 ->rawColumns(['action'])
-                ->toJson();
+                ->make(true);
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage();
         }
     }
+
     public function whereupdateusername(Request $request)
     {
-        $data = $request->all();
-        DB::beginTransaction();
-        DB::connection('sqlsrv')->table('Users')
-            ->where('id_user', '=', $data['id_user'])
-            ->update([
-                'jenis' => $data['jenis'],
-                'roles' => $data['pengguna']
-            ]);
-        $hasil = DB::connection('sqlsrv')->table('Roles_acces')->where('id_user', '=', $data['id_user'])->delete();
-        if ($hasil) {
+        try {
+            $data = $request->all();
+            DB::beginTransaction();
+            DB::connection('sqlsrv')->table('Users')
+                ->where('id_user', '=', $data['id_user'])
+                ->update([
+                    'jenis' => $data['jenis'],
+                    'roles' => $data['pengguna']
+                ]);
+            DB::connection('sqlsrv')->table('Roles_acces')->where('id_user', '=', $data['id_user'])->delete();
+            // if ($hasil) {
             DB::connection('sqlsrv')->table('Roles_acces')->insert([
                 'roles' => $data['pengguna'],
                 'id_user' => $data['id_user']
             ]);
+            // }
+            DB::commit();
+            return response()->json(['pesan' => 'Berhasil Update']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['pesan' => 'Gagal update']);
         }
-        DB::commit();
-        return response()->json(['pesan' => 'Berhasil Update']);
     }
+
     public function updatestatususername(Request $request)
     {
         try {
@@ -143,6 +150,21 @@ class HomeController extends Controller
         }
     }
 
+    public function hapususername(Request $request)
+    {
+        try {
+            $data = $request->all();
+            DB::beginTransaction();
+            DB::connection('sqlsrv')->table('Users')->where('id_user', '=', $data['id_user'])->delete();
+            DB::connection('sqlsrv')->table('Roles_acces')->where('id_user', '=', $data['id_user'])->delete();
+            DB::commit();
+            return response()->json(['pesan' => 'Berhasil dihapus']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['pesan' => 'Gagal dihapus']);
+        }
+    }
+
     public function updatestatususernameall(Request $request)
     {
         try {
@@ -160,7 +182,45 @@ class HomeController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => 'Gagal']);
+            return response()->json(['pesan' => 'Gagal dinonaktifkan']);
+        }
+    }
+
+    public function simpandatausername(Request $request)
+    {
+        try {
+            $data = $request->data;
+            if (!empty($data['nama'] && $data['username'] && $data['password'])) {
+                if ($data['username']) {
+                    DB::beginTransaction();
+                    $hasil = DB::connection('sqlsrv')->table('Users')
+                        ->select(DB::raw('COUNT(username) as username'))
+                        ->where('username', '=', $data['username'])
+                        ->first();
+                    DB::commit();
+                    if ($hasil->username > 0) {
+                        return response()->json(['pesan' => '1']);
+                    } else {
+                        DB::beginTransaction();
+                        DB::connection('sqlsrv')->table('Users')->raw('LOCK TABLES Users WRITE');
+                        DB::connection('sqlsrv')->table('Users')->insert([
+                            'nama' => $data['nama'],
+                            'username' => $data['username'],
+                            'password' => Hash::make($data['password']),
+                            'status' => '0',
+                            'tambah' => '1',
+                            'hapus' => '1',
+                            'edit' => '1',
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ]);
+                        DB::commit();
+                        return response()->json(['pesan' => '0']);
+                    }
+                }
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['pesan' => 'Gagal Simpan']);
         }
     }
 
