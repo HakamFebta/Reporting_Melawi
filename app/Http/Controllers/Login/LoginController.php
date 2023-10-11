@@ -16,6 +16,7 @@ class LoginController extends Controller
     public function index()
     {
         $data = [
+            // 'background' => DB::connection('sqlsrv')->table('name_background_login')->select('nama_background')->first(),
             'daerah' => DB::connection('sqlsrv')->table('Config_aplikasi')->select('nama', 'kabupaten')->first()
         ];
         return view('login.index')->with($data);

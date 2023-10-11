@@ -20,10 +20,17 @@
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
-
+    <style>
+        /* body {
+            background-image:;
+        } */
+    </style>
 </head>
+@php
+    $background->nama_background;
+@endphp
 
-<body>
+<body style="background-image: url('{{ asset('assets/logo/Background_1.jpg') }}')">
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
             <div class="row justify-content-center">
