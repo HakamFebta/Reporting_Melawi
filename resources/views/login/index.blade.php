@@ -26,9 +26,7 @@
         } */
     </style>
 </head>
-@php
-    $background->nama_background;
-@endphp
+
 
 <body style="background-image: url('{{ asset('assets/logo/Background_1.jpg') }}')">
     <div class="account-pages my-5 pt-sm-5">
