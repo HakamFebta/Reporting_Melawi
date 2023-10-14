@@ -67,4 +67,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Master Tanda Tangan
     Route::get('tandatangan', [TandaTanganController::class, 'index'])->name('tandatangan');
+    Route::post('listdatattd', [TandaTanganController::class, 'listdatattd'])->name('tandatangan.listdatattd');
+    Route::post('simpandatatandatangan', [TandaTanganController::class, 'simpandatatandatangan'])->name('tandatangan.simpandatatandatangan');
+    Route::post('updatedatatandatangan', [TandaTanganController::class, 'updatedatatandatangan'])->name('tandatangan.updatedatatandatangan');
+    Route::post('hapusdatatandatangan', [TandaTanganController::class, 'hapusdatatandatangan'])->name('tandatangan.hapusdatatandatangan');
 });
