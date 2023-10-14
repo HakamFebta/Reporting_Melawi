@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary simpandata-username">Update</button>
+                    <button type="button" class="btn btn-warning simpandata-username">Update</button>
                 </div>
             </div>
         </div>

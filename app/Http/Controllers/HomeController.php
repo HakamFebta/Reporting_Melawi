@@ -155,10 +155,20 @@ class HomeController extends Controller
         try {
             $data = $request->all();
             DB::beginTransaction();
-            DB::connection('sqlsrv')->table('Users')->where('id_user', '=', $data['id_user'])->delete();
-            DB::connection('sqlsrv')->table('Roles_acces')->where('id_user', '=', $data['id_user'])->delete();
-            DB::commit();
-            return response()->json(['pesan' => 'Berhasil dihapus']);
+            $hasil1 = DB::connection('sqlsrv')->table('header_laporan')
+                ->where(['id_user' => $data['id_user']])
+                ->distinct()->count('id_user');
+            $hasil2 = DB::connection('sqlsrv')->table('rincian_header_laporan')
+                ->where(['id_user' => $data['id_user']])
+                ->distinct()->count('id_user');
+            if (($hasil1 >= 0) && ($hasil2 >= 0)) {
+                return response()->json(['pesan' => 'Username tidak bisa dihapus, sudah ada inputan transaksi']);
+            } else {
+                DB::connection('sqlsrv')->table('Users')->where('id_user', '=', $data['id_user'])->delete();
+                DB::connection('sqlsrv')->table('Roles_acces')->where('id_user', '=', $data['id_user'])->delete();
+                DB::commit();
+                return response()->json(['pesan' => 'Berhasil dihapus']);
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['pesan' => 'Gagal dihapus']);
@@ -198,7 +208,7 @@ class HomeController extends Controller
                         ->where('username', '=', $data['username'])
                         ->first();
                     DB::commit();
-                    if ($hasil->username > 0) {
+                    if ($hasil->username > 1) {
                         return response()->json(['pesan' => '1']);
                     } else {
                         DB::beginTransaction();

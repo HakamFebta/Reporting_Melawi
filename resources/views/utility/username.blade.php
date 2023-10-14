@@ -443,9 +443,10 @@
                         id_user: id_user
                     }),
                     success: function(d) {
-                        if (d.pesan) {
-                            $('#tblusername').DataTable().ajax.reload();
-                        }
+                        alert(d.pesan);
+                        // if (d.pesan) {
+                        $('#tblusername').DataTable().ajax.reload();
+                        // }
                     },
                 });
             } else {
