@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Laporan\AngkasController;
 use App\Http\Controllers\Laporan\LaporanController;
 use App\Http\Controllers\Laporan\LRAController;
 use App\Http\Controllers\master\TandaTanganController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +66,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cetakdataurusan', [LaporanController::class, 'cetakdataurusan'])->name('laporananggaran.cetakdataurusan');
     Route::get('cetakdataprogram', [LaporanController::class, 'cetakdataprogram'])->name('laporananggaran.cetakdataprogram');
     Route::get('cetakdatakegiatan', [LaporanController::class, 'cetakdatakegiatan'])->name('laporananggaran.cetakdatakegiatan');
+
+    // Laporan Angkas
+    Route::get('laporananggaran/angkas', [AngkasController::class, 'index'])->name('laporananggaran.angkas');
+    Route::get('laporananggaran/cetakangkas', [AngkasController::class, 'cetakangkas'])->name('laporananggaran.cetakangkas');
 
     // Master Tanda Tangan
     Route::get('tandatangan', [TandaTanganController::class, 'index'])->name('tandatangan');
