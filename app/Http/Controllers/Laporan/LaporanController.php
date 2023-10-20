@@ -54,7 +54,7 @@ class LaporanController extends Controller
                             $btn .= '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\',\'' . $row->id_user . '\')"/><i class="bx bx-printer"></i></button>';
                             $btn .= '<button type="button" class="btn btn-danger btn-sm button-hapus" title="Hapus data" onclick="deletedata(\'' . $row->no_transaksi . '\',\'' . $row->jenis . '\')"/><i class="bx bxs-trash"></i></button>';
                         } else if ($row->id_user != $id_user) {
-                            $btn = '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-printer"></i></button>';
+                            $btn = '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\',\'' . $row->id_user . '\')"/><i class="bx bx-printer"></i></button>';
                         }
                         return $btn;
                     })
@@ -157,20 +157,20 @@ class LaporanController extends Controller
 
     function wherelist(Request $request)
     {
-        try {
+        // try {
             $data = $request->all();
             DB::beginTransaction();
             $hasil = [
                 'listdata' => DB::connection('sqlsrv')->table('header_laporan')->select('judul', 'jenis', 'no_transaksi')
-                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $request->id_user])->first(),
+                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $data['id_user']])->first(),
                 'rinciandata' => DB::connection('sqlsrv')->table('rincian_header_laporan')->select('no_transaksi', 'kode_data', 'nama_data', 'jenis')
-                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $request->id_user])->get(),
+                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $data['id_user']])->get(),
             ];
             DB::commit();
             return response()->json($hasil);
-        } catch (\Throwable $th) {
-            return response()->json(['pesan' => 'Gagal ambil']);
-        }
+        // } catch (\Throwable $th) {
+        //     return response()->json(['pesan' => 'Gagal ambil']);
+        // }
     }
 
     function whereditdata(Request $request)
@@ -202,8 +202,8 @@ class LaporanController extends Controller
                 'judul' => DB::connection('sqlsrv')->table('header_laporan')
                     ->select("judul")
                     ->where(['no_transaksi' => $data['no_transaksi']])->first(),
-                'hasilsub' => DB::connection('sqlsrvsimakda')->select("SELECT a.kd_skpd, (SELECT nm_skpd FROM ms_skpd WHERE kd_skpd=a.kd_skpd) as nm_skpd, a.nm_bidang_urusan,a.nm_program,a.nm_kegiatan, a.kd_sub_kegiatan, a.nm_sub_kegiatan, ISNULL(a.nilai,0) as anggaran,  ISNULL(b.realisasi,0) as realisasi FROM( 
-                SELECT a.kd_skpd, b.kd_bidang_urusan, b.nm_bidang_urusan, c.kd_program, c.nm_program, d.kd_kegiatan, d.nm_kegiatan,a.kd_sub_kegiatan, a.nm_sub_kegiatan,LEFT(a.kd_rek6,1) as kd_rek6, SUM(a.nilai) as nilai FROM trdrka a LEFT JOIN ms_bidang_urusan b ON b.kd_bidang_urusan=LEFT(a.kd_sub_kegiatan,4) LEFT JOIN ms_program c ON c.kd_program=LEFT(a.kd_sub_kegiatan,7) LEFT JOIN ms_kegiatan d ON d.kd_kegiatan=LEFT(a.kd_sub_kegiatan,12) WHERE a.jns_ang = ? AND a.kd_sub_kegiatan IN ($rinciansub) GROUP BY a.kd_sub_kegiatan,a.nm_sub_kegiatan,a.kd_skpd,LEFT(a.kd_rek6,1),b.kd_bidang_urusan, b.nm_bidang_urusan,c.kd_program, c.nm_program,d.kd_kegiatan, d.nm_kegiatan)a 
+                'hasilsub' => DB::connection('sqlsrvsimakda')->select("SELECT a.kd_skpd, (SELECT nm_skpd FROM ms_skpd WHERE kd_skpd=a.kd_skpd) as nm_skpd, a.nm_bidang_urusan,a.nm_program,a.nm_kegiatan, a.kd_sub_kegiatan, a.nm_sub_kegiatan, ISNULL(a.nilai,0) as anggaran,  ISNULL(b.realisasi,0) as realisasi FROM(
+                SELECT a.kd_skpd, b.kd_bidang_urusan, b.nm_bidang_urusan, c.kd_program, c.nm_program, d.kd_kegiatan, d.nm_kegiatan,a.kd_sub_kegiatan, a.nm_sub_kegiatan,LEFT(a.kd_rek6,1) as kd_rek6, SUM(a.nilai) as nilai FROM trdrka a LEFT JOIN ms_bidang_urusan b ON b.kd_bidang_urusan=LEFT(a.kd_sub_kegiatan,4) LEFT JOIN ms_program c ON c.kd_program=LEFT(a.kd_sub_kegiatan,7) LEFT JOIN ms_kegiatan d ON d.kd_kegiatan=LEFT(a.kd_sub_kegiatan,12) WHERE a.jns_ang = ? AND a.kd_sub_kegiatan IN ($rinciansub) GROUP BY a.kd_sub_kegiatan,a.nm_sub_kegiatan,a.kd_skpd,LEFT(a.kd_rek6,1),b.kd_bidang_urusan, b.nm_bidang_urusan,c.kd_program, c.nm_program,d.kd_kegiatan, d.nm_kegiatan)a
                 LEFT JOIN(SELECT a.kd_unit,a.kd_sub_kegiatan, LEFT(a.kd_rek6,1) as kd_rek6, CASE WHEN LEFT(a.kd_rek6,1)='5' THEN ISNULL(SUM(a.debet-a.kredit),0) WHEN LEFT(a.kd_rek6,1)='4' THEN ISNULL(SUM(a.kredit-a.debet),0) ELSE 0 END as realisasi FROM trdju_pkd a INNER JOIN trhju_pkd b ON b.no_voucher=a.no_voucher AND b.kd_skpd=a.kd_unit WHERE b.tgl_voucher BETWEEN ? AND ? GROUP BY a.kd_sub_kegiatan,a.kd_unit,LEFT(a.kd_rek6,1)) b ON b.kd_sub_kegiatan=a.kd_sub_kegiatan AND b.kd_unit=a.kd_skpd AND a.kd_rek6=b.kd_rek6 ORDER BY a.kd_skpd", [$data['jns_ang'], $data['periode1'], $data['periode2']]),
                 'periode1' => $data['periode1'],
                 'periode2' => $data['periode2'],
