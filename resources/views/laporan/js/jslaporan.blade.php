@@ -447,16 +447,13 @@
 
     });
 
-    function cetak(no_transaksi, judul, jenis) {
+    function cetak(no_transaksi, judul, jenis, id_user) {
         let ctktblsubkegiatan = $('#ctktblsubkegiatan').DataTable({
             processing: true,
             searching: true,
             destroy: true,
-            // scrollX: true,
+            scrollX: true,
             // scrollY: true,
-            // fixedColumns: true,
-            // scrollCollapse: true,
-            // scrollY: '300px',
             lengthMenu: [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "All"]
@@ -490,6 +487,7 @@
             type: 'post',
             data: {
                 "_token": "{{ csrf_token() }}",
+                id_user: id_user,
                 no_transaksi: no_transaksi,
                 judul: judul,
                 jenis: jenis

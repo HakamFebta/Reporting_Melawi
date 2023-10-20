@@ -258,6 +258,7 @@ class HomeController extends Controller
                     WHEN jenis =1 THEN 'Super Admin'
                     WHEN jenis = 2 THEN 'Admin'
                     ELSE 'Client' END AS jenis"))
+                    ->where(['id_user' => $id_user])
                     ->get();
             } else if ($jenis == '3') {
                 $data = DB::connection('sqlsrv')->table('Users')

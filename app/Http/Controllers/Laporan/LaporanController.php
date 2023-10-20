@@ -40,23 +40,61 @@ class LaporanController extends Controller
     function listdata()
     {
         try {
+            $jenis = Auth::user()->jenis;
             $id_user = Auth::user()->id_user;
-            $data = DB::connection('sqlsrv')->table('header_laporan')
-                ->select('no_transaksi', 'judul', 'jenis')
-                ->where(['id_user' => $id_user])
-                ->get();
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('aksi', function ($row) {
-                    $btn =
+            if ($jenis == '1') {
+                $data = DB::connection('sqlsrv')->table('header_laporan')
+                    ->select('no_transaksi', 'judul', 'jenis', 'id_user')
+                    ->get();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($row) use ($id_user) {
+                        if ($row->id_user == $id_user) {
+                            $btn = '<button type="button" style="margin-left:5px;margin-right:4px;" id="editdata"; class="btn btn-warning btn-sm buttonedit-laporan" title="Edit data" onclick="editdata(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-pencil"></i></button>';
+                            $btn .= '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\',\'' . $row->id_user . '\')"/><i class="bx bx-printer"></i></button>';
+                            $btn .= '<button type="button" class="btn btn-danger btn-sm button-hapus" title="Hapus data" onclick="deletedata(\'' . $row->no_transaksi . '\',\'' . $row->jenis . '\')"/><i class="bx bxs-trash"></i></button>';
+                        } else if ($row->id_user != $id_user) {
+                            $btn = '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-printer"></i></button>';
+                        }
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->toJson();
+            } elseif ($jenis == '2') {
+                $data = DB::connection('sqlsrv')->table('header_laporan')
+                    ->select('no_transaksi', 'judul', 'jenis', 'id_user')
+                    ->get();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($row) use ($id_user) {
+                        if ($row->id_user == $id_user) {
+                            $btn = '<button type="button" style="margin-left:5px;margin-right:4px;" id="editdata"; class="btn btn-warning btn-sm buttonedit-laporan" title="Edit data" onclick="editdata(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-pencil"></i></button>';
+                            $btn .= '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\',\'' . $row->id_user . '\')"/><i class="bx bx-printer"></i></button>';
+                            $btn .= '<button type="button" class="btn btn-danger btn-sm button-hapus" title="Hapus data" onclick="deletedata(\'' . $row->no_transaksi . '\',\'' . $row->jenis . '\')"/><i class="bx bxs-trash"></i></button>';
+                        } else if ($row->id_user != $id_user) {
+                            $btn = '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\',\'' . $row->id_user . '\')"/><i class="bx bx-printer"></i></button>';
+                        }
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->toJson();
+            } elseif ($jenis == '3') {
+                $data = DB::connection('sqlsrv')->table('header_laporan')
+                    ->select('no_transaksi', 'judul', 'jenis', 'id_user')
+                    ->where(['id_user' => $id_user])
+                    ->get();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($row) {
                         $btn = '<button type="button" style="margin-left:5px;margin-right:4px;" id="editdata"; class="btn btn-warning btn-sm buttonedit-laporan" title="Edit data" onclick="editdata(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-pencil"></i></button>';
-                    $btn .= '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\')"/><i class="bx bx-printer"></i></button>';
-                    $btn .= '<button type="button" class="btn btn-danger btn-sm button-hapus" title="Hapus data" onclick="deletedata(\'' . $row->no_transaksi . '\',\'' . $row->jenis . '\')"/><i class="bx bxs-trash"></i></button>';
-
-                    return $btn;
-                })
-                ->rawColumns(['aksi'])
-                ->toJson();
+                        $btn .= '<button type="button" style="margin-right:4px;" class="btn btn-secondary btn-sm button-cetak" title="Cetak Laporan" onclick="cetak(\'' . $row->no_transaksi . '\',\'' . $row->judul . '\',\'' . $row->jenis . '\',\'' . $row->id_user . '\')"/><i class="bx bx-printer"></i></button>';
+                        $btn .= '<button type="button" class="btn btn-danger btn-sm button-hapus" title="Hapus data" onclick="deletedata(\'' . $row->no_transaksi . '\',\'' . $row->jenis . '\')"/><i class="bx bxs-trash"></i></button>';
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->toJson();
+            } else {
+            }
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage();
         }
@@ -121,13 +159,12 @@ class LaporanController extends Controller
     {
         try {
             $data = $request->all();
-            $id_user = Auth::user()->id_user;
             DB::beginTransaction();
             $hasil = [
                 'listdata' => DB::connection('sqlsrv')->table('header_laporan')->select('judul', 'jenis', 'no_transaksi')
-                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $id_user])->first(),
+                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $request->id_user])->first(),
                 'rinciandata' => DB::connection('sqlsrv')->table('rincian_header_laporan')->select('no_transaksi', 'kode_data', 'nama_data', 'jenis')
-                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $id_user])->get(),
+                    ->where(['no_transaksi' => $data['no_transaksi'], 'jenis' => $data['jenis'], 'id_user' => $request->id_user])->get(),
             ];
             DB::commit();
             return response()->json($hasil);

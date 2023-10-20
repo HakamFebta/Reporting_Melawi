@@ -47,25 +47,28 @@ Route::middleware(['auth'])->group(function () {
     //Ganti Password
     Route::post('/updatepassword', [HomeController::class, 'updatepassword'])->name('utility.updatepassword');
 
-    // Laporan Anggaran
-    Route::get('reportanggaran', [LaporanController::class, 'index'])->name('laporananggaran.reportanggaran');
-    Route::post('subkegiatan', [LaporanController::class, 'subkegiatan'])->name('laporananggaran.subkegiatan');
-    // listdata
-    Route::post('listdata', [LaporanController::class, 'listdata'])->name('laporananggaran.listdata');
-    // Simpandata
-    Route::post('simpandata', [LaporanController::class, 'simpandata'])->name('laporananggaran.simpandata');
-    // Wherelist
-    Route::post('wherelist', [LaporanController::class, 'wherelist'])->name('laporananggaran.wherelist');
-    Route::post('whereditdata', [LaporanController::class, 'whereditdata'])->name('laporananggaran.whereditdata');
-    //update data
-    Route::post('updatedata', [LaporanController::class, 'updatedata'])->name('laporananggaran.updatedata');
-    // Hapus data
-    Route::post('hapusdata', [LaporanController::class, 'hapusdata'])->name('laporananggaran.hapusdata');
-    // Cetak
-    Route::get('cetakdatasubkegiatan', [LaporanController::class, 'cetakdatasubkegiatan'])->name('laporananggaran.cetakdatasubkegiatan');
-    Route::get('cetakdataurusan', [LaporanController::class, 'cetakdataurusan'])->name('laporananggaran.cetakdataurusan');
-    Route::get('cetakdataprogram', [LaporanController::class, 'cetakdataprogram'])->name('laporananggaran.cetakdataprogram');
-    Route::get('cetakdatakegiatan', [LaporanController::class, 'cetakdatakegiatan'])->name('laporananggaran.cetakdatakegiatan');
+
+    Route::prefix('report_anggaran')->group(function () {
+        // Laporan Anggaran
+        Route::get('reportanggaran', [LaporanController::class, 'index'])->name('laporananggaran.reportanggaran');
+        Route::post('subkegiatan', [LaporanController::class, 'subkegiatan'])->name('laporananggaran.subkegiatan');
+        // listdata
+        Route::post('listdata', [LaporanController::class, 'listdata'])->name('laporananggaran.listdata');
+        // Simpandata
+        Route::post('simpandata', [LaporanController::class, 'simpandata'])->name('laporananggaran.simpandata');
+        // Wherelist
+        Route::post('wherelist', [LaporanController::class, 'wherelist'])->name('laporananggaran.wherelist');
+        Route::post('whereditdata', [LaporanController::class, 'whereditdata'])->name('laporananggaran.whereditdata');
+        //update data
+        Route::post('updatedata', [LaporanController::class, 'updatedata'])->name('laporananggaran.updatedata');
+        // Hapus data
+        Route::post('hapusdata', [LaporanController::class, 'hapusdata'])->name('laporananggaran.hapusdata');
+        // Cetak
+        Route::get('cetakdatasubkegiatan', [LaporanController::class, 'cetakdatasubkegiatan'])->name('laporananggaran.cetakdatasubkegiatan');
+        Route::get('cetakdataurusan', [LaporanController::class, 'cetakdataurusan'])->name('laporananggaran.cetakdataurusan');
+        Route::get('cetakdataprogram', [LaporanController::class, 'cetakdataprogram'])->name('laporananggaran.cetakdataprogram');
+        Route::get('cetakdatakegiatan', [LaporanController::class, 'cetakdatakegiatan'])->name('laporananggaran.cetakdatakegiatan');
+    });
 
     // Laporan Angkas
     Route::get('laporananggaran/angkas', [AngkasController::class, 'index'])->name('laporananggaran.angkas');
