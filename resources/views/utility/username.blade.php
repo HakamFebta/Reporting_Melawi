@@ -544,6 +544,7 @@
         });
 
         function editdata(id_user, jenis, roles, username) {
+            $("input[name='roles_users[]']").prop('checked', false);
             $('#edit_iduser').val(id_user);
             $('#editusername').val(username);
             $('.editjenis').val(jenis).trigger('change');
@@ -639,7 +640,6 @@
         function kosongedit() {
             $('#edit_iduser').val('');
             $('#editusername').val('');
-            $("input[name='roles_users[]']").prop('checked', false);
             $('.editjenis').val(null).trigger('change');
             $('.editpengguna').val(null).trigger('change');
         }
