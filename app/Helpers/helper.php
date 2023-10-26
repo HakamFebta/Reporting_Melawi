@@ -18,8 +18,9 @@ if (!function_exists('menu')) {
         $id_user = Auth::user()->id_user;
         $menus = DB::table('Users as a')
             ->join('Roles as b', 'b.roles', '=', 'a.roles')
-            ->join('Roles_users as c', function (JoinClause $join) {
-                $join->on('c.id_roles', '=', 'a.roles')->orOn('a.id_user', '=', 'c.id_user');
+            ->join('Roles_users as c', function ($join) {
+                $join->on('c.id_roles', '=', 'a.roles');
+                $join->on('a.id_user', '=', 'c.id_user');
             })
             // ->join('Roles_users as c', 'c.id_roles', '=', 'a.roles', 'a.id_user', '=', 'c.id_user')
             ->join('Roles_menus as d', 'd.id_menu', '=', 'c.id_menus')
@@ -38,8 +39,9 @@ function sub_menu()
     $id_user = Auth::user()->id_user;
     $sub_menu = DB::table('Users as a')
         ->join('Roles as b', 'b.roles', '=', 'a.roles')
-        ->join('Roles_users as c', function (JoinClause $join) {
-            $join->on('c.id_roles', '=', 'a.roles')->orOn('a.id_user', '=', 'c.id_user');
+        ->join('Roles_users as c', function ($join) {
+            $join->on('c.id_roles', '=', 'a.roles');
+            $join->on('a.id_user', '=', 'c.id_user');
         })
         ->join('Roles_menus as d', 'd.id_menu', '=', 'c.id_menus')
         ->join('Roles_acces as e', 'e.id_user', '=', 'a.id_user')
@@ -57,8 +59,9 @@ function sub_submenu()
     $id_user = Auth::user()->id_user;
     $sub_submenu = DB::table('Users as a')
         ->join('Roles as b', 'b.roles', '=', 'a.roles')
-        ->join('Roles_users as c', function (JoinClause $join) {
-            $join->on('c.id_roles', '=', 'a.roles')->orOn('a.id_user', '=', 'c.id_user');
+        ->join('Roles_users as c', function ($join) {
+            $join->on('c.id_roles', '=', 'a.roles');
+            $join->on('a.id_user', '=', 'c.id_user');
         })
         ->join('Roles_menus as d', 'd.id_menu', '=', 'c.id_menus')
         ->join('Roles_acces as e', 'e.id_user', '=', 'a.id_user')
