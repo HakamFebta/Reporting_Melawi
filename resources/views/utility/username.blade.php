@@ -639,6 +639,7 @@
         function kosongedit() {
             $('#edit_iduser').val('');
             $('#editusername').val('');
+            $("input[name='roles_users[]']").prop('checked', false);
             $('.editjenis').val(null).trigger('change');
             $('.editpengguna').val(null).trigger('change');
         }
