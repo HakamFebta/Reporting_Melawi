@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('updatestatususernameall', [HomeController::class, 'updatestatususernameall'])->name('utility.updatestatususernameall');
     Route::post('simpandatausername', [HomeController::class, 'simpandatausername'])->name('utility.simpandatausername');
     Route::post('hapususername', [HomeController::class, 'hapususername'])->name('utility.hapususername');
+    Route::post('listmenuusername', [HomeController::class, 'listmenuusername'])->name('utility.listmenuusername');
 
     //Ganti Nama
     Route::get('/gantinama', [HomeController::class, 'gantinama'])->name('utility.gantinama');

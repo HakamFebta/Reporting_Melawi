@@ -54,12 +54,16 @@ class HomeController extends Controller
 
     public function username()
     {
-        $data = [
-            'roles' => DB::connection('sqlsrv')->table('Roles')
-                ->select('roles', 'name_roles')
-                ->get()
-        ];
-        return view('utility.username')->with($data);
+        try {
+            $data = [
+                'roles' => DB::connection('sqlsrv')->table('Roles')
+                    ->select('roles', 'name_roles')
+                    ->get()
+            ];
+            return view('utility.username')->with($data);
+        } catch (\Throwable $th) {
+            echo 'Message: ' . $th->getMessage();
+        }
     }
 
     public function listdatausername()
@@ -97,26 +101,36 @@ class HomeController extends Controller
     public function whereupdateusername(Request $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->data;
             DB::beginTransaction();
             DB::connection('sqlsrv')->table('Users')
                 ->where('id_user', '=', $data['id_user'])
-                ->update([
-                    'jenis' => $data['jenis'],
-                    'roles' => $data['pengguna']
-                ]);
-            DB::connection('sqlsrv')->table('Roles_acces')->where('id_user', '=', $data['id_user'])->delete();
-            // if ($hasil) {
-            DB::connection('sqlsrv')->table('Roles_acces')->insert([
-                'roles' => $data['pengguna'],
-                'id_user' => $data['id_user']
-            ]);
-            // }
+                ->update(['jenis' => $data['jenis'], 'roles' => $data['pengguna']]);
+            DB::table('Roles_users')->where(['id_user' => $data['id_user']])->delete();
+            if (isset($data['tampungan'])) {
+                DB::connection('sqlsrv')->table('Roles_users')->insert(array_map(function ($element) use ($data) {
+                    return [
+                        'id_roles' => $data['pengguna'],
+                        'id_menus' => $element['val'],
+                        'id_user' => $data['id_user'],
+                    ];
+                }, $data['tampungan']));
+            }
             DB::commit();
-            return response()->json(['pesan' => 'Berhasil Update']);
+            return response()->json(['pesan' => 'Berhasil diupdate']);
         } catch (\Throwable $th) {
-            DB::rollBack();
-            return response()->json(['pesan' => 'Gagal update']);
+            return response()->json(['pesan' => $th->getMessage()]);
+        }
+    }
+
+    public function listmenuusername(Request $request)
+    {
+        try {
+            $data = $request->id_user;
+            $hasil = DB::connection('sqlsrv')->table('Roles_users')->where(['id_user' => $data])->orderBy('id_menus', 'asc')->get();
+            return response()->json(['hasil' => $hasil]);
+        } catch (\Throwable $th) {
+            return response()->json(['pesan' => $th->getMessage()]);
         }
     }
 
@@ -146,7 +160,7 @@ class HomeController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => 'Gagal']);
+            return response()->json(['pesan' => $th->getMessage()]);
         }
     }
 
@@ -171,7 +185,7 @@ class HomeController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => 'Gagal dihapus']);
+            return response()->json(['pesan' => $th->getMessage()]);
         }
     }
 
@@ -192,7 +206,7 @@ class HomeController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => 'Gagal dinonaktifkan']);
+            return response()->json(['pesan' => $th->getMessage()]);
         }
     }
 
@@ -208,7 +222,7 @@ class HomeController extends Controller
                         ->where('username', '=', $data['username'])
                         ->first();
                     DB::commit();
-                    if ($hasil->username > 1) {
+                    if ($hasil->username >= 1) {
                         return response()->json(['pesan' => '1']);
                     } else {
                         DB::beginTransaction();
@@ -230,7 +244,7 @@ class HomeController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => 'Gagal Simpan']);
+            return response()->json(['pesan' => $th->getMessage()]);
         }
     }
 
@@ -289,32 +303,38 @@ class HomeController extends Controller
         try {
             $data = $request->all();
             DB::beginTransaction();
-            if ($data['nama'] != '' && $data['usernamenew'] != '') {
-                DB::connection('sqlsrv')->table('Users')
-                    ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
-                    ->update([
-                        'username' => $data['usernamenew'], 'nama' => $data['nama']
-                    ]);
+            $hasil = DB::table('Users')->where('username', '=', $data['usernamenew'])->count();
+            if ($hasil == 1) {
+                return response()->json(['pesan' => 'Username sudah dipakai']);
+            } else {
+                if ($data['nama'] != '' && $data['usernamenew'] != '') {
+                    DB::connection('sqlsrv')->table('Users')
+                        ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
+                        ->update([
+                            'username' => $data['usernamenew'], 'nama' => $data['nama']
+                        ]);
+                }
+                if ($data['usernamenew'] != '') {
+                    DB::connection('sqlsrv')->table('Users')
+                        ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
+                        ->update([
+                            'username' => $data['usernamenew']
+                        ]);
+                }
+                if ($data['nama'] != '') {
+                    DB::connection('sqlsrv')->table('Users')
+                        ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
+                        ->update([
+                            'nama' => $data['nama']
+                        ]);
+                }
             }
-            if ($data['usernamenew'] != '') {
-                DB::connection('sqlsrv')->table('Users')
-                    ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
-                    ->update([
-                        'username' => $data['usernamenew']
-                    ]);
-            }
-            if ($data['nama'] != '') {
-                DB::connection('sqlsrv')->table('Users')
-                    ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
-                    ->update([
-                        'nama' => $data['nama']
-                    ]);
-            }
+
             DB::commit();
             return response()->json(['pesan' => 'berhasil update']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => 'gagal update']);
+            return response()->json(['pesan' => $th->getMessage()]);
         }
     }
     public function updatepassword(Request $request)
@@ -327,6 +347,7 @@ class HomeController extends Controller
             } else {
                 $perbandingan = 'tidak sama';
             }
+
             DB::beginTransaction();
             DB::connection('sqlsrv')->table('Users')
                 ->where(['id_user' => $data['id_user'], 'username' => $data['username']])
@@ -341,7 +362,7 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
-                'pesan' => 'gagal update'
+                'pesan' => $th->getMessage()
             ]);
         }
     }

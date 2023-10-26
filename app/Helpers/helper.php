@@ -1,10 +1,12 @@
 <?php
 // namespace App\Helpers;
 
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Route;
 use Illuminate\Http\JsonResponse;
+
 
 
 
@@ -16,7 +18,10 @@ if (!function_exists('menu')) {
         $id_user = Auth::user()->id_user;
         $menus = DB::table('Users as a')
             ->join('Roles as b', 'b.roles', '=', 'a.roles')
-            ->join('Roles_users as c', 'c.id_roles', '=', 'b.roles')
+            ->join('Roles_users as c', function (JoinClause $join) {
+                $join->on('c.id_roles', '=', 'a.roles')->orOn('a.id_user', '=', 'c.id_user');
+            })
+            // ->join('Roles_users as c', 'c.id_roles', '=', 'a.roles', 'a.id_user', '=', 'c.id_user')
             ->join('Roles_menus as d', 'd.id_menu', '=', 'c.id_menus')
             ->join('Roles_acces as e', 'e.id_user', '=', 'a.id_user')
             ->select('d.id_menu', 'd.name', 'd.display_name', 'd.parent', 'd.sub_menu')
@@ -33,7 +38,9 @@ function sub_menu()
     $id_user = Auth::user()->id_user;
     $sub_menu = DB::table('Users as a')
         ->join('Roles as b', 'b.roles', '=', 'a.roles')
-        ->join('Roles_users as c', 'c.id_roles', '=', 'b.roles')
+        ->join('Roles_users as c', function (JoinClause $join) {
+            $join->on('c.id_roles', '=', 'a.roles')->orOn('a.id_user', '=', 'c.id_user');
+        })
         ->join('Roles_menus as d', 'd.id_menu', '=', 'c.id_menus')
         ->join('Roles_acces as e', 'e.id_user', '=', 'a.id_user')
         ->select('d.id_menu', 'd.name', 'd.display_name', 'd.parent', 'd.sub_menu')
@@ -50,7 +57,9 @@ function sub_submenu()
     $id_user = Auth::user()->id_user;
     $sub_submenu = DB::table('Users as a')
         ->join('Roles as b', 'b.roles', '=', 'a.roles')
-        ->join('Roles_users as c', 'c.id_roles', '=', 'b.roles')
+        ->join('Roles_users as c', function (JoinClause $join) {
+            $join->on('c.id_roles', '=', 'a.roles')->orOn('a.id_user', '=', 'c.id_user');
+        })
         ->join('Roles_menus as d', 'd.id_menu', '=', 'c.id_menus')
         ->join('Roles_acces as e', 'e.id_user', '=', 'a.id_user')
         ->select('d.id_menu', 'd.name', 'd.display_name', 'd.parent', 'd.sub_menu')

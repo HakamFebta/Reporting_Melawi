@@ -67,7 +67,7 @@
     <!-- Modal Edit -->
     <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Username</h5>
@@ -124,7 +124,111 @@
                             </select>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-body text-white" style="background-color:rgb(164, 164, 170);">
+                            <div class="row">
+                                <div class="mb-2 text-center col-12 mx-auto">
+                                    Menus
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="mb-2 text-center col-12 mx-auto">
+                                    Utility
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="1"
+                                            name="roles_users[]" id="utility">
+                                        <label class="form-check-label text-center mb-2" for="utility">Utility</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="2"
+                                            name="roles_users[]" id="users">
+                                        <label class="form-check-label text-center mb-2" for="users">Users</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="3"
+                                            name="roles_users[]" id="listusers">
+                                        <label class="form-check-label text-center mb-2" for="listusers">List
+                                            Users</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="4"
+                                            name="roles_users[]" id="usernamepassword">
+                                        <label class="form-check-label text-center mb-2" for="usernamepassword">Username &
+                                            password</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="mb-2 text-center col-12 mx-auto">
+                                    Master
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="8"
+                                            name="roles_users[]" id="master">
+                                        <label class="form-check-label text-center mb-2" for="master">Master</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="9"
+                                            name="roles_users[]" id="ttd">
+                                        <label class="form-check-label text-center mb-2" for="ttd">Tanda
+                                            Tangan</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="mb-2 text-center col-12 mx-auto">
+                                    Laporan
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="5"
+                                            name="roles_users[]" id="laporan">
+                                        <label class="form-check-label text-center mb-2" for="laporan">Laporan</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="6"
+                                            name="roles_users[]" id="anggaran">
+                                        <label class="form-check-label text-center mb-2" for="anggaran">Anggaran</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="7"
+                                            name="roles_users[]" id="laporananggaran">
+                                        <label class="form-check-label text-center mb-2" for="laporananggaran">Laporan
+                                            Anggaran</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="10"
+                                            name="roles_users[]" id="angkas">
+                                        <label class="form-check-label text-center mb-2" for="angkas">Anggaran
+                                            Kas</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-2 psnedit" hidden="true">
+                        <div class="alert alert-block text-center" role="alert" id="pesanedit">
+                        </div>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary cls-edit" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-warning update-data">Update</button>
@@ -283,36 +387,52 @@
                 placeholder: "Pilih Pengguna"
             });
 
-            $('.update-data').on('click', function() {
-                $('#edit_iduser').val();
-                var editjenis = $('.editjenis').val();
-                // alert(editjenis);
-                // return;
-                let editpengguna = $('.editpengguna').val();
-                if (editjenis == '' || editpengguna == '') {
+            $('.update-data').on('click', function(event) {
+                var jenis = $('.editjenis').val();
+                let tampungan = $("input[name='roles_users[]']:checked").map(function(value) {
+                    let data = {
+                        val: this.value,
+                    };
+                    return data;
+                }).get();
+                let pengguna = $('.editpengguna').val();
+                let id_user = $('#edit_iduser').val();
+                if (jenis == '' || pengguna == '' || jenis == null || pengguna == null) {
                     alert('Pilihan masih kosong');
                     return;
                 }
+                let data = {
+                    jenis,
+                    tampungan,
+                    pengguna,
+                    id_user
+                }
                 $.ajax({
                     url: "{{ route('utility.whereupdateusername') }}",
-                    type: 'post',
+                    type: 'POST',
                     data: {
-                        "_token": "{{ csrf_token() }}",
-                        id_user: $('#edit_iduser').val(),
-                        jenis: $('.editjenis').val(),
-                        pengguna: $('.editpengguna').val()
-
+                        data: data
                     },
-                    beforeSend: function() {},
-                    success: function(data) {
-                        alert(data.pesan);
+                    beforeSend: function() {
+                        $('.update-data').prop('disabled', true);
                     },
-                    error: function(xhr, status, error) {},
-                    complete: function(xhr, status) {
+                    success: function(d) {
+                        $(".psnedit").attr("hidden", false);
+                        $('#pesanedit').removeClass('alert-warning');
+                        $('#pesanedit').addClass('alert-success alert-block text-center');
+                        $('#pesanedit').html(d.pesan);
+                        $("#pesanedit").fadeTo(2000, 500).slideUp(500, function() {
+                            $("#pesanedit").slideUp(500);
+                        });
+                    },
+                    complete: function() {
+                        $('.update-data').prop('disabled', false);
+                        // $('#modaledit').modal('hide');
                         $('#tblusername').DataTable().ajax.reload();
-                        $('#modaledit').modal('hide');
-                    }
+                    },
                 });
+
+
             });
 
             $('.cls-edit').on('click', function() {
@@ -428,7 +548,51 @@
             $('#editusername').val(username);
             $('.editjenis').val(jenis).trigger('change');
             $('.editpengguna').val(roles).trigger('change');
-            $('#modaledit').modal('show');
+            $.ajax({
+                url: "{{ route('utility.listmenuusername') }}",
+                type: 'POST',
+                data: {
+                    id_user: id_user
+                },
+                success: function(response) {
+                    let value;
+                    $.each(response.hasil, function(index, data) {
+                        value = data.id_menus;
+                        if ($('#utility').val() == value) {
+                            $('#utility').prop('checked', true);
+                        }
+                        if ($('#users').val() == value) {
+                            $('#users').prop('checked', true);
+                        }
+                        if ($('#listusers').val() == value) {
+                            $('#listusers').prop('checked', true);
+                        }
+                        if ($('#usernamepassword').val() == value) {
+                            $('#usernamepassword').prop('checked', true);
+                        }
+                        if ($('#master').val() == value) {
+                            $('#master').prop('checked', true);
+                        }
+                        if ($('#ttd').val() == value) {
+                            $('#ttd').prop('checked', true);
+                        }
+                        if ($('#laporan').val() == value) {
+                            $('#laporan').prop('checked', true);
+                        }
+                        if ($('#anggaran').val() == value) {
+                            $('#anggaran').prop('checked', true);
+                        }
+                        if ($('#laporananggaran').val() == value) {
+                            $('#laporananggaran').prop('checked', true);
+                        }
+                        if ($('#angkas').val() == value) {
+                            $('#angkas').prop('checked', true);
+                        }
+                    });
+                    $('#modaledit').modal('show');
+                }
+            });
+
         }
 
 
