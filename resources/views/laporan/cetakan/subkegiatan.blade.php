@@ -124,11 +124,11 @@
     <br>
     <table style="width:98%;border-collapse: collapse;font-family:Times New Roman;" border="0">
         <tr>
-            <td style="padding-left:80%;font-size:16px">Nanga Pinoh, {{ tgl_format_indonesia(ucwords($tglttd)) }}
+            <td style="padding-left:70%;font-size:16px">Nanga Pinoh, {{ tgl_format_indonesia(ucwords($tglttd)) }}
             </td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:16px">{{ $tandatangan->jabatan }}</td>
+            <td style="padding-left:70%;font-size:16px">{{ $tandatangan->jabatan }}</td>
         </tr>
         <tr>
             <td style="text-align:center;font-size:16px">&nbsp;</td>
@@ -140,13 +140,13 @@
             <td style="text-align:center;font-size:16px">&nbsp;</td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:16px"><u>{{ $tandatangan->nama }}</u></td>
+            <td style="padding-left:70%;font-size:16px"><u>{{ $tandatangan->nama }}</u></td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:16px">{{ $tandatangan->pangkat }}</td>
+            <td style="padding-left:70%;font-size:16px">{{ $tandatangan->pangkat }}</td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:16px">NIP: {{ $tandatangan->nip }}</td>
+            <td style="padding-left:70%;font-size:16px">NIP: {{ $tandatangan->nip }}</td>
         </tr>
     </table>
 </body>
