@@ -41,7 +41,7 @@
         </tr>
     </table>
     <br>
-    <table style="width:98%;border-collapse: collapse;font-size:12px;font-family:Times New Roman;" align="center"
+    <table style="width:98%;border-collapse: collapse;font-size:14px;font-family:Times New Roman;" align="center"
         border="1">
         <thead style="display: table-header-group;">
             <tr>
@@ -124,29 +124,29 @@
     <br>
     <table style="width:98%;border-collapse: collapse;font-family:Times New Roman;" border="0">
         <tr>
-            <td style="padding-left:80%;font-size:large">Nanga Pinoh, {{ tgl_format_indonesia(ucwords($tglttd)) }}
+            <td style="padding-left:80%;font-size:16px">Nanga Pinoh, {{ tgl_format_indonesia(ucwords($tglttd)) }}
             </td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:large">{{ $tandatangan->jabatan }}</td>
+            <td style="padding-left:80%;font-size:16px">{{ $tandatangan->jabatan }}</td>
         </tr>
         <tr>
-            <td style="text-align:center;font-size:large">&nbsp;</td>
+            <td style="text-align:center;font-size:16px">&nbsp;</td>
         </tr>
         <tr>
-            <td style="text-align:center;font-size:large">&nbsp;</td>
+            <td style="text-align:center;font-size:16px">&nbsp;</td>
         </tr>
         <tr>
-            <td style="text-align:center;font-size:large">&nbsp;</td>
+            <td style="text-align:center;font-size:16px">&nbsp;</td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:large"><u>{{ $tandatangan->nama }}</u></td>
+            <td style="padding-left:80%;font-size:16px"><u>{{ $tandatangan->nama }}</u></td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:large">{{ $tandatangan->pangkat }}</td>
+            <td style="padding-left:80%;font-size:16px">{{ $tandatangan->pangkat }}</td>
         </tr>
         <tr>
-            <td style="padding-left:80%;font-size:large">NIP: {{ $tandatangan->nip }}</td>
+            <td style="padding-left:80%;font-size:16px">NIP: {{ $tandatangan->nip }}</td>
         </tr>
     </table>
 </body>
