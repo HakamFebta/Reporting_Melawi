@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-info tmbh" style="width:100px;" type="button"><i
+                    <button class="btn btn-info rounded-pill tmbh" style="width:100px;" type="button"><i
                             class="bx bx-plus">&nbsp;Tambah</i></button>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                                             </div>
                                             <div class="col-sm-9">
                                                 <button type="button" style="margin-right:4px;width:140px"
-                                                    class="btn btn-success adddata"><i
+                                                    class="btn btn-success rounded-pill adddata"><i
                                                         class="bx bx-plus">&nbsp;Tambah</i></button>
                                             </div>
                                         </div>
@@ -269,8 +269,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" id="simpandata" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-secondary rounded-pill" style="width:100px"
+                        data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" id="simpandata" class="btn btn-primary rounded-pill"
+                        style="width:100px">Simpan</button>
                 </div>
             </div>
         </div>
@@ -458,8 +460,8 @@
 
                                             </div>
                                             <div class="col-sm-9">
-                                                <button type="button" style="margin-right:4px;width:140px"
-                                                    class="btn btn-info editadddata"><i
+                                                <button type="button" style="width:140px"
+                                                    class="btn btn-info rounded-pill editadddata"><i
                                                         class="bx bx-plus">&nbsp;Tambah</i></button>
                                             </div>
                                         </div>
@@ -502,8 +504,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary cls-edit" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" id="updatedata" class="btn btn-warning">Update</button>
+                    <button type="button" class="btn btn-secondary rounded-pill cls-edit" style="width:100px"
+                        data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" id="updatedata" style="width:100px"
+                        class="btn btn-warning rounded-pill">Update</button>
                 </div>
             </div>
         </div>
@@ -618,7 +622,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row mb-3">
                                             <div class="col-sm-3">
                                                 <label class="col-form-label">Tanggal Tanda Tangan</label>
                                             </div>
@@ -626,18 +630,29 @@
                                                 <input class="form-control" type="date" id="tglttd">
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label class="col-form-label">Setting Data</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button type="button" id="setting"
+                                                    style="background-color: rgb(131, 129, 129);width:50px; height:30px;"
+                                                    class="btn text-white"><i class="fas fa-tools fa-lg"></i></button>
+                                            </div>
+                                        </div>
                                         <div class="row mt-4">
                                             <div class="text-center col-12 mx-auto">
                                                 <button type="button" style="margin-right:4px;width:140px"
-                                                    class="btn btn-primary" value="layar"
+                                                    class="btn btn-primary rounded-pill" value="layar"
                                                     onclick="print(this.value);"><i
                                                         class="fas fa-share">&nbsp;Layar</i></button>
                                                 <button type="button" style="margin-right:4px;width:140px"
-                                                    class="btn btn-secondary" value="pdf"
+                                                    class="btn btn-secondary rounded-pill" value="pdf"
                                                     onclick="print(this.value);"><i
                                                         class="far fa-file-pdf">&nbsp;PDF</i></button>
-                                                <button type="button" style="width:140px" class="btn btn-warning"
-                                                    value="excel" onclick="print(this.value);"><i
+                                                <button type="button" style="width:140px"
+                                                    class="btn btn-warning rounded-pill" value="excel"
+                                                    onclick="print(this.value);"><i
                                                         class="far fa-file-excel">&nbsp;Excel</i></button>
                                             </div>
                                         </div>
@@ -668,6 +683,32 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="settingdata" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(184, 182, 180)">
+                    <h5 class="modal-title text-white" id="staticBackdropLabel">Setting
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3"> <label class="col-form-label">Data</label></div>
+                        <div class="col-sm-9"> <input type="text" class="form-control"
+                                onkeyup="this.value=this.value.replace(/[^\d]/,'')" id="jmldata" value="0"
+                                placeholder="0"></div>
+                    </div>
+                </div>
+                {{-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Simpan</button>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -752,6 +793,11 @@
                 $('.jns_anggaran').val(null).trigger('change.select2');
                 $('#tblsubkegiatan').DataTable().clear().draw();
                 $('#viewmodal').modal('show');
+            });
+
+            $('#setting').on('click', function(event) {
+                event.preventDefault();
+                $('#settingdata').modal('show');
             });
         });
     </script>

@@ -452,7 +452,7 @@
             processing: true,
             searching: true,
             destroy: true,
-            scrollX: true,
+            // scrollX: true,
             // scrollY: true,
             lengthMenu: [
                 [5, 10, 25, 50, 100, -1],
@@ -550,6 +550,7 @@
     }
 
     function print(jeniscetak) {
+        let jmldata = $('#jmldata').val();
         let ctktgl1 = $('#ctktgl1').val();
         let ctktgl2 = $('#ctktgl2').val();
         let ctkno_transaksi = $('#ctkno_transaksi').val();
@@ -581,7 +582,8 @@
                 return value.kode_data;
             });
             let kode_data = JSON.stringify(kd_data);
-            let request = '?jns_ang=' + ctkjns_anggaran + '&ttd=' + ttd + '&tglttd=' + tglttd + '&jenis=' + jenis +
+            let request = '?jns_ang=' + ctkjns_anggaran + '&jmldata=' + jmldata + '&ttd=' + ttd + '&tglttd=' + tglttd +
+                '&jenis=' + jenis +
                 '&jns_cetak=' +
                 jeniscetak +
                 '&periode1=' + ctktgl1 + '&dan' + '&periode2=' + ctktgl2 + '&no_transaksi=' + ctkno_transaksi +
