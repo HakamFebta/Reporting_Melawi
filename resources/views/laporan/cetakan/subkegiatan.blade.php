@@ -21,17 +21,17 @@
             <td style="width:60%;">
                 <table style="width:80%;border-collapse: collapse;" border="0">
                     <tr>
-                        <td height="40" colspan="3" style="text-align:center;font-size:16px"><b>PEMERINTAH
+                        <td height="40" colspan="3" style="text-align:center;font-size:20px"><b>PEMERINTAH
                                 KABUPATEN MELAWI</b>
                         </td>
 
                     </tr>
                     <tr>
-                        <td height="25" colspan="3" style="text-align:center;font-size:16px">{{ $judul->judul }}
+                        <td height="25" colspan="3" style="text-align:center;font-size:20px">{{ $judul->judul }}
                         </td>
                     </tr>
                     <tr>
-                        <td height="25" colspan="3" style="text-align:center;font-size:16px">Periode
+                        <td height="25" colspan="3" style="text-align:center;font-size:20px">Periode
                             {{ tgl_format_indonesia(ucwords($periode1)) }}
                             s.d {{ tgl_format_indonesia(ucwords($periode2)) }}
                         </td>
@@ -41,7 +41,7 @@
         </tr>
     </table>
     <br>
-    <table style="width:98%;border-collapse: collapse;font-size:14px;font-family:Times New Roman;" align="center"
+    <table style="width:98%;border-collapse: collapse;font-size:16px;font-family:Times New Roman;" align="center"
         border="1">
         <thead style="display: table-header-group;">
             <tr>
