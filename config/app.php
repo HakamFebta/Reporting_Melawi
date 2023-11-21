@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //PDF
         Barryvdh\Snappy\ServiceProvider::class,
+        Mccarlosen\LaravelMpdf\LaravelMpdfServiceProvider::class,
         //EXCEL
         Maatwebsite\Excel\ExcelServiceProvider::class
 
@@ -239,6 +240,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         // PDF
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'PDFF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         // EXCEL
         'Excel' => Maatwebsite\Excel\Facades\Excel::class
