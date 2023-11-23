@@ -293,6 +293,21 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $("#tmbhusername").on({
+                keydown: function(e) {
+                    if (e.which === 32)
+                        return false;
+                },
+                keyup: function() {
+                    this.value = this.value.toLowerCase();
+                },
+                change: function() {
+                    this.value = this.value.replace(/\s/g, "");
+
+                }
+            });
+
             var table = $('#tblusername').DataTable({
                 processing: true,
                 searching: true,
@@ -435,9 +450,9 @@
 
             });
 
-            $('.cls-edit').on('click', function() {
-                kosongedit();
-            });
+            // $('.cls-edit').on('click', function() {
+            //     kosongedit();
+            // });
 
             $('#modaledit').modal({
                 backdrop: "static"
@@ -450,9 +465,10 @@
             });
             $('.close').on('click', function() {
                 $('#tblusername').DataTable().ajax.reload();
-                kosongtambah();
+                // kosongtambah();
             });
             $('.tmbh').on('click', function() {
+                kosongtambah();
                 $('#tmbahmodal').modal('show');
             });
 
@@ -544,6 +560,7 @@
         });
 
         function editdata(id_user, jenis, roles, username) {
+            kosongedit();
             $("input[name='roles_users[]']").prop('checked', false);
             $('#edit_iduser').val(id_user);
             $('#editusername').val(username);

@@ -130,6 +130,21 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $("#usernamenew").on({
+                keydown: function(e) {
+                    if (e.which === 32)
+                        return false;
+                },
+                keyup: function() {
+                    this.value = this.value.toLowerCase();
+                },
+                change: function() {
+                    this.value = this.value.replace(/\s/g, "");
+
+                }
+            });
+
             table = $('#tblusername').DataTable({
                 processing: true,
                 searching: true,
