@@ -114,6 +114,23 @@
 
          $('.simpandata').on('click', function(e) {
              e.preventDefault();
+             toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "newestOnTop": false,
+                 "progressBar": true,
+                 "positionClass": "toast-top-right",
+                 "preventDuplicates": false,
+                 "onclick": null,
+                 "showDuration": "300",
+                 "hideDuration": "1000",
+                 "timeOut": "5000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             }
              $('.simpandata').submit();
 
              if ($('#nama').val() == '' || $('#nip').val() == '' || $('#jbtn').val() == '' || $(
@@ -133,25 +150,16 @@
                      $('.simpandata').prop('disabled', true);
                  },
                  success: function(d) {
-                     $(".psnsimpan").attr("hidden", false);
                      if (d.pesan == 1) {
-                         $('#pesansimpan').removeClass('alert-success');
-                         $('#pesansimpan').addClass(
-                             'alert-warning');
-                         $('#pesansimpan').html('Nama Sudah terpakai');
+                         toastr.info('Nama Sudah terpakai');
                      } else if (d.pesan == 0) {
-                         $('#pesansimpan').removeClass('alert-warning');
-                         $('#pesansimpan').addClass(
-                             'alert-success alert-block text-center');
-                         $('#pesansimpan').html('Berhasil Tersimpan');
+                         toastr.success('Berhasil Tersimpan');
                      }
-                     $("#pesansimpan").fadeTo(2000, 500).slideUp(500, function() {
-                         $("#pesansimpan").slideUp(500);
-                     });
                  },
                  error: function() {},
                  complete: function(d) {
                      $('.simpandata').prop('disabled', false);
+                     $('#modaltambah').modal('hide');
                      kosongtambah();
                      $('#tblttd').DataTable().ajax.reload();
                  }
@@ -205,6 +213,23 @@
 
          $('.updatedata').on('click', function() {
              $('.updatedata').submit();
+             toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "newestOnTop": false,
+                 "progressBar": true,
+                 "positionClass": "toast-top-right",
+                 "preventDuplicates": false,
+                 "onclick": null,
+                 "showDuration": "300",
+                 "hideDuration": "1000",
+                 "timeOut": "5000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             }
              if ($('#editnama').val() == '' || $('#editnip').val() == '' || $('#editjbtn').val() == '' ||
                  $('#editpangkat').val() == '') {
                  return;
@@ -223,21 +248,15 @@
                      $('.updatedata').prop('disabled', true);
                  },
                  success: function(d) {
-                     $(".psnedit").attr("hidden", false);
                      if (d.pesan == 0) {
-                         $('#pesanedit').removeClass('alert-warning');
-                         $('#pesanedit').addClass(
-                             'alert-success alert-block text-center');
-                         $('#pesanedit').html('Berhasil Update');
+                         toastr.success('Berhasil diupdate');
                      }
-                     $("#pesanedit").fadeTo(2000, 500).slideUp(500, function() {
-                         $("#pesanedit").slideUp(500);
-                     });
                  },
                  error: function() {},
                  complete: function(d) {
                      $('.updatedata').prop('disabled', false);
                      $('#tblttd').DataTable().ajax.reload();
+                     $('#modaledit').modal('hide');
                  }
              });
          });
@@ -248,6 +267,23 @@
 
          //  Hapus data
          $('#tblttd tbody').on('click', '#hapusdata', function() {
+             toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "newestOnTop": false,
+                 "progressBar": true,
+                 "positionClass": "toast-top-right",
+                 "preventDuplicates": false,
+                 "onclick": null,
+                 "showDuration": "300",
+                 "hideDuration": "1000",
+                 "timeOut": "5000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             }
              var data = table.row($(this).parents('tr')).data();
              let pesan = confirm('Yakin hapus data ' + data.nama + ' ?');
              if (pesan == true) {
@@ -255,12 +291,12 @@
                      url: "{{ route('tandatangan.hapusdatatandatangan') }}",
                      type: 'post',
                      data: {
-                         "_token": "{{ csrf_token() }}",
+                         //  "_token": "{{ csrf_token() }}",
                          id_ttd: data.id_ttd,
                      },
                      beforeSend: function() {},
                      success: function(data) {
-                         alert(data.pesan);
+                         toastr.success(data.pesan);
                      },
                      error: function(xhr, status, error) {},
                      complete: function(xhr, status) {

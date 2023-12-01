@@ -175,7 +175,7 @@ class HomeController extends Controller
             $hasil2 = DB::connection('sqlsrv')->table('rincian_header_laporan')
                 ->where(['id_user' => $data['id_user']])
                 ->distinct()->count('id_user');
-            if (($hasil1 >= 0) && ($hasil2 >= 0)) {
+            if (($hasil1 > 0) && ($hasil2 > 0)) {
                 return response()->json(['pesan' => 'Username tidak bisa dihapus, sudah ada inputan transaksi']);
             } else {
                 DB::connection('sqlsrv')->table('Users')->where('id_user', '=', $data['id_user'])->delete();
@@ -287,7 +287,7 @@ class HomeController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $btn = '<button type="button" style="margin:0px 5px 0px 20px;" data-toggle="modal" class="btn btn-warning btn-sm buttonedit-username" title="Edit Username"/><i class="bx bx-pencil"></i></button>';
+                    $btn = '<button type="button" style="margin:0px 5px 0px 25px;" data-toggle="modal" class="btn btn-warning btn-sm buttonedit-username" title="Edit Username"/><i class="bx bx-pencil"></i></button>';
                     $btn .= '<button type="button" data-toggle="modal" class="btn btn-info btn-sm buttonedit-password" title="Edit Password"/><i class="bx bx-edit"></i></button>';
                     return $btn;
                 })
@@ -305,7 +305,7 @@ class HomeController extends Controller
             DB::beginTransaction();
             $hasil = DB::table('Users')->where('username', '=', $data['usernamenew'])->count();
             if ($hasil == 1) {
-                return response()->json(['pesan' => 'Username sudah dipakai']);
+                return response()->json(['pesan' => '1']);
             } else {
                 if ($data['nama'] != '' && $data['usernamenew'] != '') {
                     DB::connection('sqlsrv')->table('Users')
@@ -329,9 +329,8 @@ class HomeController extends Controller
                         ]);
                 }
             }
-
             DB::commit();
-            return response()->json(['pesan' => 'berhasil update']);
+            return response()->json(['pesan' => '0']);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['pesan' => $th->getMessage()]);
@@ -355,8 +354,7 @@ class HomeController extends Controller
             DB::commit();
 
             return response()->json([
-                'pesan' =>
-                'berhasil update',
+                'pesan' => 'Berhasil diupdate',
                 'perbandingan' => $perbandingan
             ]);
         } catch (\Throwable $th) {

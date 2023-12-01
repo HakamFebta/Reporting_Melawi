@@ -24,7 +24,8 @@
 <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 <!-- Datatable init js -->
 <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
-
+<!-- Toasts -->
+<script src="{{ asset('assets/libs/toastr/build/toastr.min.js') }}"></script>
 <!-- apexcharts -->
 {{-- <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script> --}}
 

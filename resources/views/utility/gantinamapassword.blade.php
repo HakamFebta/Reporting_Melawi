@@ -194,6 +194,7 @@
             });
             // Aksi
             $('#tblusername tbody').on('click', '.buttonedit-username', function() {
+                $('#usernamenew').val(null);
                 var data = table.row($(this).parents('tr')).data();
                 $('#nama').val(data['nama']);
                 $('#username').val(data['username']);
@@ -203,11 +204,24 @@
             });
             //ajax simpan username
             $(".simpandata-username").on("click", function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
                 let usernamenew = $('#usernamenew').val();
-                // if (usernamenew == '') {
-                //     alert('username baru tidak boleh kosong');
-                //     return;
-                // }
                 $.ajax({
                     url: "{{ route('utility.updateusername') }}",
                     type: 'post',
@@ -223,16 +237,18 @@
                         $('.simpandata-username').prop('disabled', true);
                     },
                     success: function(status) {
-                        alert(status.pesan);
-                        if (status.pesan) {
-                            $('#tblusername').DataTable().ajax.reload();
+                        if (status.pesan == '1') {
+                            toastr.info('Username sudah dipakai');
+                        } else if (status.pesan == '0') {
+                            toastr.success('Berhasil diupdate');
                         }
+                        $('#tblusername').DataTable().ajax.reload();
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.pesan);
                     },
                     complete: function(xhr, status) {
-                        $('#nama').val(null);
+                        // $('#nama').val(null);
                         $('#usernamenew').val(null);
                         $('.simpandata-username').prop('disabled', false);
                         $('#exampleModal').modal('hide');
@@ -252,9 +268,26 @@
             });
             //ajax simpan password
             $(".simpandata-password").on("click", function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
                 let passwordnew = $('#passwordnew').val();
                 if (passwordnew == '') {
-                    alert('password baru tidak boleh kosong');
+                    toastr.info('Password baru tidak boleh kosong');
                     return;
                 }
                 $.ajax({
@@ -274,7 +307,7 @@
                         if (d.perbandingan == 'sama') {
                             window.location.href = "{{ route('login') }}";
                         } else {
-                            alert(d.pesan);
+                            toastr.success(d.pesan);
                             $('#tblusername').DataTable().ajax.reload();
                         }
                     },

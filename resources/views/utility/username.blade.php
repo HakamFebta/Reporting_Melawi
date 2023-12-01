@@ -40,15 +40,15 @@
                                 @method('put')
                                 <thead>
                                     <tr>
-                                        <th style="width:30px;">No</th>
-                                        <th style="width:350px;" hidden>Id Users</th>
-                                        <th style="width:350px;" hidden>Jenis</th>
-                                        <th style="width:350px;" hidden>Roles</th>
-                                        <th style="width:350px;" hidden>Nama</th>
-                                        <th style="width:200px;">Username</th>
-                                        <th style="width:100px;">Type</th>
+                                        <th style="width:50px;">No</th>
+                                        <th style="width:1px;" hidden>Id Users</th>
+                                        <th style="width:1px;" hidden>Jenis</th>
+                                        <th style="width:1px;" hidden>Roles</th>
+                                        <th style="width:1px;" hidden>Nama</th>
+                                        <th style="width:300px;">Username</th>
+                                        <th style="width:200px;">Type</th>
                                         <th style="width:10px;text-align:center">Aktif</th>
-                                        <th style="width:70px;text-align:center">Aksi</th>
+                                        <th style="width:100px;text-align:center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -223,10 +223,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group mt-2 psnedit" hidden="true">
-                        <div class="alert alert-block text-center" role="alert" id="pesanedit">
-                        </div>
-                    </div>
+                    {{-- <div class="form-group mt-2 psnedit" hidden="true"> --}}
+                    {{-- <div class="alert alert-block text-center" role="alert" id="pesanedit">
+                    </div> --}}
+                    {{-- </div> --}}
                 </div>
 
                 <div class="modal-footer">
@@ -268,11 +268,6 @@
                             <button type="button" class="btn btn-primary simpandata">Simpan</button>
                         </div>
                     </form>
-                    <div class="form-group mt-2 psnsimpan" hidden="true">
-                        <div class="alert alert-block text-center" role="alert" id="pesansimpan">
-
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Close</button>
@@ -360,7 +355,7 @@
                         data: null,
                         orderable: false,
                         render: (data, type, row, meta) =>
-                            `<button type="button" style="margin-left:20px;margin-right:3px;" class="btn btn-warning btn-sm buttonedit-data" title="Edit Username" data-toggle="modal" onClick="editdata('${data.id_user}','${data.jenis}','${data.roles}','${data.username}')"/><i class="bx bx-pencil"></i></button>` +
+                            `<button type="button" style="margin-left:25px;margin-right:3px;" class="btn btn-warning btn-sm buttonedit-data" title="Edit Username" data-toggle="modal" onClick="editdata('${data.id_user}','${data.jenis}','${data.roles}','${data.username}')"/><i class="bx bx-pencil"></i></button>` +
                             `<button type="button" class="btn btn-danger btn-sm buttonhps-data" data-toggle="modal" onClick="hapusdata('${data.id_user}','${data.username}')" title="Hapus Username"/><i class="bx bxs-trash"></i></button>`,
                     }
                 ],
@@ -403,6 +398,23 @@
             });
 
             $('.update-data').on('click', function(event) {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
                 var jenis = $('.editjenis').val();
                 let tampungan = $("input[name='roles_users[]']:checked").map(function(value) {
                     let data = {
@@ -432,17 +444,10 @@
                         $('.update-data').prop('disabled', true);
                     },
                     success: function(d) {
-                        $(".psnedit").attr("hidden", false);
-                        $('#pesanedit').removeClass('alert-warning');
-                        $('#pesanedit').addClass('alert-success alert-block text-center');
-                        $('#pesanedit').html(d.pesan);
-                        $("#pesanedit").fadeTo(2000, 500).slideUp(500, function() {
-                            $("#pesanedit").slideUp(500);
-                        });
+                        toastr.success(d.pesan);
                     },
                     complete: function() {
                         $('.update-data').prop('disabled', false);
-                        // $('#modaledit').modal('hide');
                         $('#tblusername').DataTable().ajax.reload();
                     },
                 });
@@ -474,6 +479,24 @@
 
             // Action Tambah
             $('.simpandata').on('click', function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
                 $('.simpandata').submit();
                 if ($('#tmbhnama').val() == '' || $('#tmbhusername').val() == '' || $('#tmbhpassword')
                     .val() == '') {
@@ -500,21 +523,11 @@
                             $('.simpandata').prop('disabled', true);
                         },
                         success: function(d) {
-                            $(".psnsimpan").attr("hidden", false);
                             if (d.pesan == 1) {
-                                $('#pesansimpan').removeClass('alert-success');
-                                $('#pesansimpan').addClass(
-                                    'alert-warning');
-                                $('#pesansimpan').html('Username Sudah terpakai');
+                                toastr.info('Username Sudah terpakai');
                             } else if (d.pesan == 0) {
-                                $('#pesansimpan').removeClass('alert-warning');
-                                $('#pesansimpan').addClass(
-                                    'alert-success alert-block text-center');
-                                $('#pesansimpan').html('Berhasil Tersimpan');
+                                toastr.success('Berhasil Tersimpan!');
                             }
-                            $("#pesansimpan").fadeTo(2000, 500).slideUp(500, function() {
-                                $("#pesansimpan").slideUp(500);
-                            });
                         },
                         complete: function() {
                             $('.simpandata').prop('disabled', false);
@@ -615,6 +628,23 @@
 
 
         function hapusdata(id_user, username) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
             let confirme = confirm("Yakin menghapus username " + username + " ?");
             if (confirme == true) {
                 $.ajax({
@@ -625,10 +655,8 @@
                         id_user: id_user
                     }),
                     success: function(d) {
-                        alert(d.pesan);
-                        // if (d.pesan) {
+                        toastr.success(d.pesan);
                         $('#tblusername').DataTable().ajax.reload();
-                        // }
                     },
                 });
             } else {
@@ -663,10 +691,6 @@
 
         function kosongtambah() {
             $('#newModalForm').validate().resetForm();
-            $('#tmbhnama').val('');
-            $('#tmbhusername').val('');
-            $('#tmbhpassword').val('');
-
         }
     </script>
 @endsection

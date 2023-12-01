@@ -77,11 +77,6 @@
                         <div class="form-group mt-2">
                             <button type="button" class="btn btn-primary simpandata">Simpan</button>
                         </div>
-                        <div class="form-group mt-2 psnsimpan" hidden>
-                            <div class="alert alert-block text-center" role="alert" id="pesansimpan">
-                            </div>
-                        </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -128,11 +123,6 @@
                         <div class="form-group mt-2">
                             <button type="button" class="btn btn-warning updatedata">Update</button>
                         </div>
-                        <div class="form-group mt-2 psnedit" hidden>
-                            <div class="alert alert-block text-center" role="alert" id="pesanedit">
-                            </div>
-                        </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">

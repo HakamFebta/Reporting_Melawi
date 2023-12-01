@@ -69,13 +69,11 @@ class TandaTanganController extends Controller
     {
         try {
             $data = $request->all();
-            DB::beginTransaction();
-            $deleted = DB::connection('sqlsrv')->table('master_ttd')->where('id_ttd', '=', $data['id_ttd'])->delete();
-            return response()->json(['pesan' => 'Data dihapus']); //code...
-            DB::commit();
+            DB::connection('sqlsrv')->table('master_ttd')->where('id_ttd',  $data['id_ttd'])->delete();
+            return response()->json(['pesan' => 'Data dihapus']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['pesan' => $th]); //throw $th;
+            return response()->json(['pesan' => $th]);
         }
     }
 }
