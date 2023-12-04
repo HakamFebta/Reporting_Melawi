@@ -253,8 +253,7 @@
                                                 <th style="width:100px;">No</th>
                                                 <th style="width:300px;">Kode Data</th>
                                                 <th style="width:500px;">Nama Data</th>
-                                                <th style="width:100px;text-align:center;">Aksi</th>
-
+                                                <th style="width:10px;text-align:center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -489,7 +488,6 @@
                                                 <th style="width:300px;">Kode Data</th>
                                                 <th style="width:500px;">Nama Data</th>
                                                 <th style="width:10px;text-align:center;">Aksi</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>

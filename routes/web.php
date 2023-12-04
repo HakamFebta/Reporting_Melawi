@@ -72,8 +72,8 @@ Route::middleware(['auth'])->group(function () {
     // });
 
     // Laporan Angkas
-    Route::get('laporananggaran/angkas', [AngkasController::class, 'index'])->name('laporananggaran.angkas');
-    Route::get('laporananggaran/cetakangkas', [AngkasController::class, 'cetakangkas'])->name('laporananggaran.cetakangkas');
+    Route::get('angkas', [AngkasController::class, 'index'])->name('laporananggaran.angkas');
+    Route::get('cetakangkas', [AngkasController::class, 'cetakangkas'])->name('laporananggaran.cetakangkas');
 
     // Master Tanda Tangan
     Route::get('tandatangan', [TandaTanganController::class, 'index'])->name('tandatangan');

@@ -192,6 +192,23 @@
 
         // Sub kegiatan
         $('.adddata').on('click', function() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
             // let status = $("input[type='checkbox']").val();
             var statuscheckskpd = $("#checkskpd").is(":checked") ? "true" : "false";
             var statuscheckurusan = $("#checkurusan").is(":checked") ? "true" : "false";
@@ -224,16 +241,16 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     table.row.add({
                         'kode_data': kd_data,
                         'nama_data': nm_data,
-                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:12px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
+                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:10px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
                     }).draw();
                 }
                 $('.subkegiatan').val(null).trigger('change.select2');
@@ -242,7 +259,7 @@
                 let kd_data = $('.urusan').val();
                 let nm_data = $('.urusan').find(':selected').data('nm_urusan');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Kode Urusan dulu');
+                    toastr.info('Pilih Kode Urusan dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -254,16 +271,16 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     table.row.add({
                         'kode_data': kd_data,
                         'nama_data': nm_data,
-                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:12px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
+                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:10px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
                     }).draw();
                 }
                 $('.urusan').val(null).trigger('change.select2');
@@ -272,7 +289,7 @@
                 let kd_data = $('.program').val();
                 let nm_data = $('.program').find(':selected').data('nm_program');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Kode Program dulu');
+                    toastr.info('Pilih Kode Program dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -284,16 +301,16 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     table.row.add({
                         'kode_data': kd_data,
                         'nama_data': nm_data,
-                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:12px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
+                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:10px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
                     }).draw();
                 }
                 $('.program').val(null).trigger('change.select2');
@@ -302,7 +319,7 @@
                 let kd_data = $('.kegiatan').val();
                 let nm_data = $('.kegiatan').find(':selected').data('nm_kegiatan');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Kode Program dulu');
+                    toastr.info('Pilih Kode Program dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -314,16 +331,16 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     table.row.add({
                         'kode_data': kd_data,
                         'nama_data': nm_data,
-                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:12px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
+                        'aksi': `<a href="javascript:void(0);" id="removedata" style="margin-left:10px;" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>`,
                     }).draw();
                 }
                 $('.kegiatan').val(null).trigger('change.select2');
@@ -366,7 +383,26 @@
             table.row($(this).parents('tr')).remove().draw();
         });
 
-        $('#simpandata').on('click', function() {
+        $('#simpandata').on('click', function(e) {
+            e.preventDefault();
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
             let judul = $('#judul').val();
             let sttsstatuscheckskpd = $("#checkskpd").is(":checked") ? "true" : "false";
             let sttsstatuscheckurusan = $("#checkurusan").is(":checked") ? "true" : "false";
@@ -385,10 +421,16 @@
                 jenis = sttscheckprogram;
             } else if (sttsstatuscheckkegiatan == 'true') {
                 jenis = sttscheckkegiatan;
-            } else {}
+            } else {
+                jenis = null;
+            }
+            if (jenis == null) {
+                toastr.info('Jenis tidak boleh kosong');
+                return;
+            }
 
             if (judul == '') {
-                alert('Judul tidak boleh kosong');
+                toastr.info('Judul tidak boleh kosong');
                 return;
             }
             var datatampungan = table.rows().data().toArray().map(function(value, index) {
@@ -399,7 +441,7 @@
                 return data;
             });
             if (table.rows().data().length == 0) {
-                alert('Rincian data masih kosong');
+                toastr.warning('Rincian data masih kosong');
                 return;
             }
 
@@ -417,11 +459,10 @@
                     data: data,
                 }),
                 beforeSend: function() {
-                    // setting a timeout
                     $('#simpandata').prop('disabled', true);
                 },
                 success: function(d) {
-                    alert(d.pesan);
+                    toastr.success(d.pesan);
                     $('#listdata').DataTable().ajax.reload();
                 },
                 complete: function(xhr, status) {
@@ -522,6 +563,23 @@
     }
 
     function deletedata(no_transaksi, jenis) {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
         let hapusdata = confirm("Yakin hapus data : " + no_transaksi + " ?");
         if (hapusdata == true) {
             $.ajax({
@@ -535,7 +593,7 @@
                 },
                 beforeSend: function() {},
                 success: function(data) {
-
+                    toastr.success(data.pesan);
                 },
                 error: function(xhr, status, error) {},
                 complete: function(xhr, status) {

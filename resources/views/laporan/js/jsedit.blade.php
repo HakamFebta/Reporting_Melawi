@@ -196,6 +196,23 @@
         });
 
         $('.editadddata').on('click', function() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
             // let status = $("input[type='checkbox']").val();
             var statuscheckskpd = $("#editcheckskpd").is(":checked") ? "true" : "false";
             var statuscheckurusan = $("#editcheckurusan").is(":checked") ? "true" : "false";
@@ -208,7 +225,7 @@
             let statusdata;
             if (statuscheckkegiatan == "false" && statuscheckskpd == "false" && statuscheckurusan ==
                 "false" && statuscheckprogram == "false") {
-                alert('Pilih Jenis dulu');
+                toastr.info('Pilih Jenis dulu');
                 return;
             }
             let isiandata = edittblsubkegiatan.rows().data();
@@ -216,7 +233,7 @@
                 let kd_data = $('.editsubkegiatan').val();
                 let nm_data = $('.editsubkegiatan').find(':selected').data('nama');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Sub Kegiatan dulu');
+                    toastr.info('Pilih Sub Kegiatan dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -228,10 +245,10 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     edittblsubkegiatan.row.add({
@@ -246,7 +263,7 @@
                 let kd_data = $('.editurusan').val();
                 let nm_data = $('.editurusan').find(':selected').data('nm_urusan');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Kode Urusan dulu');
+                    toastr.info('Pilih Kode Urusan dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -258,10 +275,10 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     edittblsubkegiatan.row.add({
@@ -276,7 +293,7 @@
                 let kd_data = $('.editprogram').val();
                 let nm_data = $('.editprogram').find(':selected').data('nm_program');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Kode Program dulu');
+                    toastr.info('Pilih Kode Program dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -288,10 +305,10 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     edittblsubkegiatan.row.add({
@@ -306,7 +323,7 @@
                 let kd_data = $('.editkegiatan').val();
                 let nm_data = $('.editkegiatan').find(':selected').data('nm_kegiatan');
                 if (kd_data == null || kd_data == '') {
-                    alert('Pilih Kode Program dulu');
+                    toastr.info('Pilih Kode Kegiatan dulu');
                     return;
                 }
                 let isi = $.each(isiandata, function(index, obj) {
@@ -318,10 +335,10 @@
                     }
                 });
                 if (statusdata == '1') {
-                    alert('Kode data sudah ada');
+                    toastr.info('Kode data sudah ada');
                     return;
                 } else if (statusdata == '2') {
-                    alert('Kode data jumlah digit berbeda');
+                    toastr.info('Kode data jumlah digit berbeda');
                     return;
                 } else if (statusdata == undefined) {
                     edittblsubkegiatan.row.add({
@@ -365,7 +382,25 @@
             });
         });
 
-        $('#updatedata').on('click', function() {
+        $('#updatedata').on('click', function(e) {
+            e.preventDefault();
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
             let no_transaksi = $('#editno_transaksi').val();
             let judul = $('#editjudul').val();
             let sttsstatuscheckskpd = $("#editcheckskpd").is(":checked") ? "true" : "false";
@@ -388,7 +423,7 @@
             } else {}
 
             if (judul == '') {
-                alert('Judul tidak boleh kosong');
+                toastr.info('Judul tidak boleh kosong');
                 return;
             }
 
@@ -401,7 +436,7 @@
             });
 
             if (edittblsubkegiatan.rows().data().length == 0) {
-                alert('Rincian data masih kosong');
+                toastr.info('Rincian data masih kosong');
                 return;
             }
             let data = {
@@ -423,7 +458,7 @@
                     $('#updatedata').prop('disabled', true);
                 },
                 success: function(d) {
-                    alert(d.pesan);
+                    toastr.success(d.pesan);
                     $('#listdata').DataTable().ajax.reload();
                 },
                 complete: function(xhr, status) {

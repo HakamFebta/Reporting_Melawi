@@ -302,6 +302,16 @@
 
                 }
             });
+            $("#tmbhpassword").on({
+                keydown: function(e) {
+                    if (e.which === 32)
+                        return false;
+                },
+                change: function() {
+                    this.value = this.value.replace(/\s/g, "");
+
+                }
+            });
 
             var table = $('#tblusername').DataTable({
                 processing: true,
@@ -470,7 +480,6 @@
             });
             $('.close').on('click', function() {
                 $('#tblusername').DataTable().ajax.reload();
-                // kosongtambah();
             });
             $('.tmbh').on('click', function() {
                 kosongtambah();
@@ -531,8 +540,8 @@
                         },
                         complete: function() {
                             $('.simpandata').prop('disabled', false);
+                            $('#tmbahmodal').modal('hide');
                             $('#tblusername').DataTable().ajax.reload();
-                            kosongtambah();
                         },
                     });
                 }
@@ -691,6 +700,9 @@
 
         function kosongtambah() {
             $('#newModalForm').validate().resetForm();
+            $('#tmbhnama').val('');
+            $('#tmbhusername').val('');
+            $('#tmbhpassword').val('');
         }
     </script>
 @endsection
