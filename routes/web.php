@@ -27,7 +27,10 @@ Route::post('/login', [LoginController::class, 'actionlogin'])->name('login.acti
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Dashboard
 // Route::prefix('reporting')->group(function () {
-Route::get('/dashboard', [HomeController::class, 'index'])->name('reporting.dashboard')->middleware(['auth']);
+Route::get('dashboard', [HomeController::class, 'index'])->name('reporting.dashboard')->middleware(['auth']);
+Route::get('profile', [HomeController::class, 'profile'])->name('reporting.profile')->middleware(['auth']);
+Route::post('updateprofile', [HomeController::class, 'updateprofile'])->name('reporting.updateprofile');
+Route::post('refreshprofile', [HomeController::class, 'refreshprofile'])->name('reporting.refreshprofile');
 // });
 
 // Username

@@ -364,4 +364,115 @@ class HomeController extends Controller
             ]);
         }
     }
+
+
+    function profile()
+    {
+        try {
+            $id_user =  Auth::user()->id_user;
+            $username =  Auth::user()->username;
+            $data = ['id_user' => Auth::user()->id_user, 'username' => Auth::user()->username, 'nama' => Auth::user()->nama];
+            return view('utility.profile')->with($data);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'pesan' => $th->getMessage()
+            ]);
+        }
+    }
+
+    function updateprofile(Request $request)
+    {
+        try {
+            $id_user = Auth::user()->id_user;
+            $data = $request->all();
+            if ($data['namanew'] != '' && $data['passwordnew'] == '' && $data['usernamenew'] == '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['nama' => $data['namanew']]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 1,
+                    'text' => 'Berhasil diupdate nama'
+                ]);
+            }
+            if ($data['usernamenew'] != '' && $data['namanew'] == '' && $data['passwordnew'] == '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['username' => $data['usernamenew']]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 2,
+                    'text' => 'Berhasil diupdate username'
+                ]);
+            }
+            if ($data['passwordnew'] != '' && $data['usernamenew'] == '' && $data['namanew'] == '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['password' => Hash::make($data['passwordnew'])]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 3,
+                    'text' => 'Berhasil diupdate password'
+                ]);
+            }
+            if ($data['namanew'] != '' && $data['usernamenew'] != '' && $data['passwordnew'] != '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['nama' => $data['namanew'], 'username' => $data['usernamenew'], 'password' => Hash::make($data['passwordnew'])]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 4,
+                    'text' => 'Data berhasil diupdate'
+                ]);
+            }
+            if ($data['namanew'] != '' && $data['usernamenew'] != '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['nama' => $data['namanew'], 'username' => $data['usernamenew']]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 5,
+                    'text' => 'Data berhasil diupdate'
+                ]);
+            }
+            if ($data['namanew'] != '' && $data['passwordnew'] != '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['nama' => $data['namanew'], 'password' => Hash::make($data['passwordnew'])]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 6,
+                    'text' => 'Data berhasil diupdate'
+                ]);
+            }
+            if ($data['usernamenew'] != '' && $data['passwordnew'] != '') {
+                DB::beginTransaction();
+                DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
+                    ->update(['username' => $data['usernamenew'], 'password' => Hash::make($data['passwordnew'])]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 7,
+                    'text' => 'Data berhasil diupdate'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'pesan' => $th->getMessage()
+            ]);
+        }
+    }
+
+    function refreshprofile()
+    {
+        try {
+            DB::beginTransaction();
+            $id_user = Auth::user()->id_user;
+            $data = DB::connection('sqlsrv')->table('Users')->where(['id_user' => $id_user])->first();
+            return response()->json(['hasil' => $data]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'pesan' => $th->getMessage()
+            ]);
+        }
+    }
 }

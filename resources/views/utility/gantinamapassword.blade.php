@@ -203,7 +203,8 @@
                 $('#exampleModal').modal('show');
             });
             //ajax simpan username
-            $(".simpandata-username").on("click", function() {
+            $(".simpandata-username").on("click", function(e) {
+                e.preventDefault();
                 toastr.options = {
                     "closeButton": true,
                     "debug": false,
