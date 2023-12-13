@@ -150,6 +150,8 @@
                             if (data.pesan == ['3', '4', '6', '7']) {
                                 toastr.success(data.text);
                                 window.location.href = "{{ route('login') }}";
+                            } else if (data.pesan == ['8']) {
+                                toastr.warning(data.text);
                             } else {
                                 toastr.success(data.text);
                                 // window.location.href = "{{ route('reporting.profile') }}";

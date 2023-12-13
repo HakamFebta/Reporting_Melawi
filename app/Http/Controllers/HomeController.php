@@ -385,6 +385,18 @@ class HomeController extends Controller
         try {
             $id_user = Auth::user()->id_user;
             $data = $request->all();
+            if ($data['usernamenew']) {
+                DB::beginTransaction();
+                $hasil = DB::connection('sqlsrv')->table('Users')->where('username', '=', $data['usernamenew'])->count();
+                DB::commit();
+                if ($hasil > 0) {
+                    return response()->json([
+                        'pesan' => 8,
+                        'text' => 'Username sudah dipakai'
+                    ]);
+                }
+            }
+
             if ($data['namanew'] != '' && $data['passwordnew'] == '' && $data['usernamenew'] == '') {
                 DB::beginTransaction();
                 DB::connection('sqlsrv')->table('Users')->where('id_user', $id_user)
