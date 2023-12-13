@@ -147,10 +147,14 @@
                             $('#update').prop('disabled', true);
                         },
                         success: function(data) {
-                            if (data.pesan == ['3', '4', '6', '7']) {
+                            if (data.pesan == '3' || data.pesan == '4' || data.pesan == '6' || data
+                                .pesan == '7') {
+                                const delayInMilliseconds = 3000; //1 second
                                 toastr.success(data.text);
-                                window.location.href = "{{ route('login') }}";
-                            } else if (data.pesan == ['8']) {
+                                setTimeout(function() {
+                                    window.location.href = "{{ route('login') }}";
+                                }, delayInMilliseconds);
+                            } else if (data.pesan == '8') {
                                 toastr.warning(data.text);
                             } else {
                                 toastr.success(data.text);
