@@ -16,10 +16,13 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <p class="text-white fw-medium">Anggaran</p>
+                                            <p class="text-white fw-medium">Anggaran
+                                            </p>
                                             <p class="mb-2">Status :
                                             </p>
-                                            <p class="mb-0">{{ $nama_anggaran->nama_anggaran }}</p>
+                                            <p class="mb-0">
+                                                {{ $nama_anggaran->nama_anggaran == isset($nama_anggaran->nama_anggaran) ? $nama_anggaran->nama_anggaran : 'Belum ada anggaran' }}
+                                            </p>
                                         </div>
 
                                         <div class="flex-shrink-0 align-self-center">
@@ -43,7 +46,8 @@
                                             <p class="mb-2">Anggaran :
                                             </p>
                                             <p class="mb-0">Rp.
-                                                {{ number_format($data_pendapatan->pendapatan, 2, ',', '.') }}</p>
+                                                {{ $data_pendapatan->pendapatan == isset($data_pendapatan->pendapatan) ? number_format($data_pendapatan->pendapatan, 2, ',', '.') : number_format(0, 2, ',', '.') }}
+                                            </p>
                                         </div>
 
                                         <div class="flex-shrink-0 align-self-center">
@@ -67,7 +71,8 @@
                                             <p class="mb-2">Anggaran :
                                             </p>
                                             <p class="mb-0">Rp.
-                                                {{ number_format($data_belanja->belanja, 2, ',', '.') }}</p>
+                                                {{ $data_belanja->belanja == isset($data_belanja->belanja) ? number_format($data_belanja->belanja, 2, ',', '.') : number_format(0, 2, ',', '.') }}
+                                            </p>
                                         </div>
 
                                         <div class="flex-shrink-0 align-self-center ">
@@ -91,11 +96,14 @@
                                                 {{-- {{ number_format($data_pem_terima->pem_terima - $data_pem_keluar->pem_keluar) }} --}}
 
                                             </p>
-                                            <p class="text-muted mb-0"> Rp.
-                                                {{ number_format($data_pem_terima->pem_terima - $data_pem_keluar->pem_keluar, 2, ',', '.') }}
+                                            <p class="text-muted mb-0"> Rp. @if (isset($data_pem_terima->pem_terima) && isset($data_pem_keluar->pem_keluar))
+                                                    {{ number_format($data_pem_terima->pem_terima - $data_pem_keluar->pem_keluar, 2, ',', '.') }}
+                                                @else
+                                                    {{ number_format(0, 2, ',', '.') }}
+                                                @endif
+
                                             </p>
                                         </div>
-
                                         <div class="flex-shrink-0 align-self-center">
                                             <div class="avatar-sm rounded-circle bg-secondary mini-stat-icon">
                                                 <span class="avatar-title rounded-circle bg-secondary">
@@ -107,7 +115,31 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card text-white bg-warning mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p class="text-white fw-medium">Anggaran
+                                            </p>
+                                            <p class="mb-2">Tahun :
+                                            </p>
+                                            <p class="mb-0">{{ $tahun_anggaran }}</p>
+                                        </div>
 
+                                        <div class="flex-shrink-0 align-self-center">
+                                            <div class="mini-stat-icon avatar-sm rounded-circle bg-secondary">
+                                                <span class="avatar-title rounded-circle bg-secondary">
+                                                    <i class="bx bx-money font-size-24"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- end row -->
                 </div>
@@ -340,13 +372,13 @@
 
 @endsection
 @section('js')
-<script>
-    $(document).ready(function(){
-        $.ajaxSetup({
-headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
-});
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
     </script>
-    @endsection
+@endsection

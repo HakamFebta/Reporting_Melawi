@@ -48,7 +48,8 @@ class LoginController extends Controller
                 return back()->with('key', 'Username terkunci, silahkan hubungi admin');
             } else {
                 Auth::logoutOtherDevices($request->input('password'));
-                return redirect()->route('reporting.dashboard');
+                // return redirect()->route('reporting.dashboard');
+                return redirect()->route('reporting.dashboardtahun');
                 // return redirect()->to('dashboard');
             }
         }
@@ -57,6 +58,10 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $id_user = Auth::user()->id_user;
+        DB::beginTransaction();
+        DB::connection('sqlsrv')->table('Users_tahun')->where('id_users', '=', $id_user)->delete();
+        DB::commit();
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

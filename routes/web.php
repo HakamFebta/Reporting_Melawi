@@ -7,6 +7,7 @@ use App\Http\Controllers\Laporan\LaporanController;
 use App\Http\Controllers\Laporan\LRAController;
 use App\Http\Controllers\master\TandaTanganController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Tahun_user\TahunUserController;
 
 
 /*
@@ -25,6 +26,8 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 // Aksi Login
 Route::post('/login', [LoginController::class, 'actionlogin'])->name('login.action');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/dashboardtahun', [TahunUserController::class, 'index'])->name('reporting.dashboardtahun')->middleware(['auth']);
+Route::post('pilihantahun', [TahunUserController::class, 'pilihantahun'])->name('reporting.pilihantahun');
 // Dashboard
 // Route::prefix('reporting')->group(function () {
 Route::get('dashboard', [HomeController::class, 'index'])->name('reporting.dashboard')->middleware(['auth']);

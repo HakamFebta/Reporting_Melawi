@@ -21,33 +21,35 @@ class HomeController extends Controller
     public function index()
     {
         $status_anggarann = status_anggaran();
+        $status_sistem = dashboard_tahun()->getData();
         $status_anggarann = $status_anggarann->getData();
         // dd($status_anggarann);
         // return;
         $status_anggaran = $status_anggarann->jns_anggaran;
         $nama_anggaran = $status_anggarann->nama_anggaran;
         $data = [
-            'data_pendapatan' => DB::connection('sqlsrvsimakda')->table('trdrka')
+            'data_pendapatan' => DB::connection($status_sistem->con_sistem_kedua)->table('trdrka')
                 ->select(DB::raw("isnull(sum(nilai),0) as pendapatan"))
                 ->where(['jns_ang' => $status_anggaran])
                 ->where(DB::raw('left(kd_rek6,1)'), 4)
                 ->first(),
-            'data_belanja' => DB::connection('sqlsrvsimakda')->table('trdrka')
+            'data_belanja' => DB::connection($status_sistem->con_sistem_kedua)->table('trdrka')
                 ->select(DB::raw("isnull(sum(nilai),0) as belanja"))
                 ->where(['jns_ang' => $status_anggaran])
                 ->where(DB::raw('left(kd_rek6,1)'), 5)
                 ->first(),
-            'data_pem_terima' => DB::connection('sqlsrvsimakda')->table('trdrka')
+            'data_pem_terima' => DB::connection($status_sistem->con_sistem_kedua)->table('trdrka')
                 ->select(DB::raw("isnull(sum(nilai),0)as pem_terima"))
                 ->where(['jns_ang' => $status_anggaran])
                 ->where(DB::raw('left(kd_rek6,2)'), 61)
                 ->first(),
-            'data_pem_keluar' => DB::connection('sqlsrvsimakda')->table('trdrka')
+            'data_pem_keluar' => DB::connection($status_sistem->con_sistem_kedua)->table('trdrka')
                 ->select(DB::raw("isnull(sum(nilai),0) as pem_keluar"))
                 ->where(['jns_ang' => $status_anggaran])
                 ->where(DB::raw('left(kd_rek6,2)'), 62)
                 ->first(),
-            'nama_anggaran' => $nama_anggaran
+            'nama_anggaran' => $nama_anggaran,
+            'tahun_anggaran' => $status_sistem->tahun
         ];
         return view('layout.dashboard')->with($data);
     }

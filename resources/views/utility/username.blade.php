@@ -295,7 +295,7 @@
                         return false;
                 },
                 keyup: function() {
-                    this.value = this.value.toLowerCase();
+                    this.value = this.value;
                 },
                 change: function() {
                     this.value = this.value.replace(/\s/g, "");
@@ -306,6 +306,9 @@
                 keydown: function(e) {
                     if (e.which === 32)
                         return false;
+                },
+                keyup: function() {
+                    this.value = this.value.toLowerCase();
                 },
                 change: function() {
                     this.value = this.value.replace(/\s/g, "");

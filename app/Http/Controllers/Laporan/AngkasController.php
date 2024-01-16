@@ -16,8 +16,9 @@ class AngkasController extends Controller
 
     function cetakangkas(Request $request)
     {
+        $status_sistem = dashboard_tahun()->getData();
         // dd($request->jenis);
-        $hasil = ['hasil' => DB::connection('sqlsrvsimakda')
+        $hasil = ['hasil' => DB::connection($status_sistem->con_sistem_kedua)
             ->select("SELECT * FROM(
             SELECT '1'as urut,'tetap' as status, nm_skpd as nm_skpd, murni as nilai from status_angkas
             UNION ALL

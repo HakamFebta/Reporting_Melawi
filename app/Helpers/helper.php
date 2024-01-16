@@ -76,8 +76,11 @@ function sub_submenu()
 
 function status_anggaran()
 {
-    DB::connection('sqlsrvsimakda')->beginTransaction();
-    $status_anggaran = DB::connection('sqlsrvsimakda')->select("SELECT DISTINCT a.jns_ang FROM trhrka a WHERE a.tgl_dpa IN(SELECT MAX(tgl_dpa) FROM trhrka WHERE status = '1')");
+    $id_user = Auth::user()->id_user;
+    DB::beginTransaction();
+    DB::commit();
+    $status_sistem = dashboard_tahun()->getData();
+    $status_anggaran = DB::connection($status_sistem->con_sistem_kedua)->select("SELECT DISTINCT a.jns_ang FROM trhrka a WHERE a.tgl_dpa IN(SELECT MAX(tgl_dpa) FROM trhrka WHERE status = '1')");
     foreach ($status_anggaran as $jns_ang) {
         $stts_anggaran = $jns_ang->jns_ang;
     }
@@ -163,4 +166,25 @@ function tgl_format_indonesia($tgl)
     $tahun  =  $tanggal[0];
     // dd($tanggal);
     return  $tanggal[2] . ' ' . $bulan . ' ' . $tahun;
+}
+
+function dashboard_tahun()
+{
+    $id_user = Auth::user()->id_user;
+    DB::beginTransaction();
+    $hasil = DB::connection('sqlsrv')->table('Users_tahun')->select('tahun')->where('id_users', '=', $id_user)->first();
+    DB::commit();
+    if ($hasil->tahun == '2023') {
+        $con_sistem_pertama = 'sqlsrv';
+        $con_sistem_kedua = 'sqlsrvsimakda';
+    } elseif ($hasil->tahun == '2024') {
+        $con_sistem_pertama = 'sistem_2024';
+        $con_sistem_kedua = 'sistemkedua_2024';
+    } else {
+    }
+    return response()->json([
+        'tahun' => $hasil->tahun,
+        'con_sistem_pertama' => $con_sistem_pertama,
+        'con_sistem_kedua' => $con_sistem_kedua
+    ]);
 }

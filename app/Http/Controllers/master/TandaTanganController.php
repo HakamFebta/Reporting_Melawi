@@ -16,26 +16,33 @@ class TandaTanganController extends Controller
 
     public function listdatattd()
     {
-        DB::beginTransaction();
-        $data = DB::connection('sqlsrv')->table('master_ttd')->get();
-        DB::commit();
-        return response()->json($data);
+        try {
+            $status_sistem = dashboard_tahun()->getData();
+            DB::beginTransaction();
+            $data = DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')->get();
+            DB::commit();
+            return response()->json($data);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['pesan' => $th]);
+        }
     }
 
     function simpandatatandatangan(Request $request)
     {
         try {
+            $status_sistem = dashboard_tahun()->getData();
             $data = $request->all();
             DB::beginTransaction();
-            $hasil = DB::connection('sqlsrv')->table('master_ttd')
+            $hasil = DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')
                 ->select(DB::raw('COUNT(nama) as nama'))
                 ->where(['nama' => $data['nama']])
                 ->first();
             if ($hasil->nama > 1) {
                 return response()->json(['pesan' => '1']);
             } else {
-                DB::connection('sqlsrv')->table('master_ttd')->raw('LOCK TABLES master_ttd WRITE');
-                DB::connection('sqlsrv')->table('master_ttd')->insert([
+                DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')->raw('LOCK TABLES master_ttd WRITE');
+                DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')->insert([
                     'nama' => $data['nama'],
                     'nip' => $data['nip'],
                     'jabatan' => $data['jbtn'],
@@ -53,9 +60,10 @@ class TandaTanganController extends Controller
     function updatedatatandatangan(Request $request)
     {
         try {
+            $status_sistem = dashboard_tahun()->getData();
             $data = $request->all();
             DB::beginTransaction();
-            DB::connection('sqlsrv')->table('master_ttd')->where(['id_ttd' => $data['id_ttd']])
+            DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')->where(['id_ttd' => $data['id_ttd']])
                 ->update(['nama' => $data['nama'], 'nip' => $data['nip'], 'jabatan' => $data['jbtn'], 'pangkat' => $data['pangkat']]);
             DB::commit();
             return response()->json(['pesan' => '0']);
@@ -68,8 +76,9 @@ class TandaTanganController extends Controller
     function hapusdatatandatangan(Request $request)
     {
         try {
+            $status_sistem = dashboard_tahun()->getData();
             $data = $request->all();
-            DB::connection('sqlsrv')->table('master_ttd')->where('id_ttd',  $data['id_ttd'])->delete();
+            DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')->where('id_ttd',  $data['id_ttd'])->delete();
             return response()->json(['pesan' => 'Data dihapus']);
         } catch (\Throwable $th) {
             DB::rollBack();

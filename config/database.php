@@ -90,6 +90,31 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
+        'sistem_2024' => [
+            'driver' => env('DB_CONNECTIONDB3'),
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOSTDB3', 'localhost'),
+            'port' => env('DB_PORTDB3', '1433'),
+            'database' => env('DB_DATABASEDB3', 'forge'),
+            'username' => env('DB_USERNAMEDB3', 'forge'),
+            'password' => env('DB_PASSWORDDB3', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+        // Sistem Kedua
+        'sistemkedua_2024' => [
+            'driver' => env('DB_CONNECTIONDB2'),
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOSTDB2', '103.134.19.147'),
+            'port' => env('DB_PORTDB2', '1433'),
+            'database' => env('DB_DATABASEDB2', 'forge'),
+            'username' => env('DB_USERNAMEDB2', 'forge'),
+            'password' => env('DB_PASSWORDDB2', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
         'sqlsrvsimakda' => [
             'driver' => env('DB_CONNECTIONDB1'),
             'url' => env('DATABASE_URL'),
@@ -135,7 +160,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
