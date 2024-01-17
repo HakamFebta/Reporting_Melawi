@@ -19,13 +19,10 @@ class TahunUserController extends Controller
         $data = $request->all();
         $id_user = Auth::user()->id_user;
         DB::beginTransaction();
-        $hapus = DB::connection('sqlsrv')->table('Users_tahun')->where(['id_users' => $id_user])->delete();
-        if ($hapus) {
-            DB::connection('sqlsrv')->table('Users_tahun')->insert(
-                ['tahun' => $data['tahun'], 'id_users' => $id_user, 'created_at' => date('Y-m-d H:i:s')]
-            );
-        }
-
+        DB::connection('sqlsrv')->table('Users_tahun')->where(['id_users' => $id_user])->delete();
+        DB::connection('sqlsrv')->table('Users_tahun')->insert(
+            ['tahun' => $data['tahun'], 'id_users' => $id_user, 'created_at' => date('Y-m-d H:i:s')]
+        );
         DB::commit();
     }
 }
