@@ -1,0 +1,42 @@
+name: 🚀 Deploy backend on push branch main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code on branch main
+        uses: actions/checkout@v1
+
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@v0.1.4
+
+        env:
+          HOST: ${{ secrets.HOSTNAME }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
+        with:
+          source: "."
+          target: "/var/app7/reporting"
+
+      # - name: Executing remote command
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     HOST: ${{ secrets.HOSTNAME }}
+      #     USERNAME: ${{ secrets.USERNAME }}
+      #     PORT: ${{ secrets.PORT }}
+      #     KEY: ${{ secrets.SSHKEY }}
+      #     PASSPHRASE: ${{ secrets.PASSPHRASE }}
+      #     script: |
+      #       cd /var/www/beritesambas
+      #       export NVM_DIR=~/.nvm
+      #       source ~/.nvm/nvm.sh
+      #       npm install --only=prod
+      #       npm run build
+      #       pm2 restart beritesambas
