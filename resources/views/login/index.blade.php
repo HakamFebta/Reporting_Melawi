@@ -57,7 +57,7 @@
                                 <form action="{{ route('login.action') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Username A</label>
+                                        <label for="username" class="form-label">Username</label>
                                         <input autofocus type="text"
                                             class="form-control  @error('username')
                                             is-invalid
