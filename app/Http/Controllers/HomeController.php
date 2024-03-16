@@ -109,6 +109,11 @@ class HomeController extends Controller
                 ->where('id_user', '=', $data['id_user'])
                 ->update(['jenis' => $data['jenis'], 'roles' => $data['pengguna']]);
             DB::table('Roles_users')->where(['id_user' => $data['id_user']])->delete();
+            DB::connection('sqlsrv')->table('Roles_acces')->where(['id_user' => $data['id_user']])->delete();
+            DB::connection('sqlsrv')->table('Roles_acces')->insert([
+                'roles' => $data['pengguna'],
+                'id_user' => $data['id_user']
+            ]);
             if (isset($data['tampungan'])) {
                 DB::connection('sqlsrv')->table('Roles_users')->insert(array_map(function ($element) use ($data) {
                     return [

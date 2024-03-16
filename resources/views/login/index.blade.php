@@ -89,8 +89,8 @@
 
                                     </div>
                                     <div class="mb-3 -mt-3 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light"
-                                            type="submit">Masuk</button>
+                                        <button class="btn btn-primary waves-effect waves-light rounded-pill"
+                                            type="submit">Login</button>
                                     </div>
                                 </form>
                                 <div class="message mb-3">

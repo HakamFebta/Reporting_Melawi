@@ -220,6 +220,21 @@
                                             Kas</label>
                                     </div>
                                 </div>
+                                <div class="row col-sm-3 mt-2">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="11"
+                                            name="roles_users[]" id="kasda">
+                                        <label class="form-check-label text-center mb-2" for="kasda">Kasda</label>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-3 mt-2">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" value="12"
+                                            name="roles_users[]" id="laporankasda">
+                                        <label class="form-check-label text-center mb-2" for="laporankasda">Laporan
+                                            Kasda</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -438,7 +453,7 @@
                 let pengguna = $('.editpengguna').val();
                 let id_user = $('#edit_iduser').val();
                 if (jenis == '' || pengguna == '' || jenis == null || pengguna == null) {
-                    alert('Pilihan masih kosong');
+                    toastr.info('Pilihan masih kosong');
                     return;
                 }
                 let data = {
@@ -460,6 +475,7 @@
                         toastr.success(d.pesan);
                     },
                     complete: function() {
+                        $('#modaledit').modal('hide');
                         $('.update-data').prop('disabled', false);
                         $('#tblusername').DataTable().ajax.reload();
                     },
@@ -630,6 +646,15 @@
                         }
                         if ($('#angkas').val() == value) {
                             $('#angkas').prop('checked', true);
+                        }
+                        if ($('#angkas').val() == value) {
+                            $('#angkas').prop('checked', true);
+                        }
+                        if ($('#kasda').val() == value) {
+                            $('#kasda').prop('checked', true);
+                        }
+                        if ($('#laporankasda').val() == value) {
+                            $('#laporankasda').prop('checked', true);
                         }
                     });
                     $('#modaledit').modal('show');

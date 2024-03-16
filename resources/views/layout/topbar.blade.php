@@ -380,6 +380,7 @@
         </div> --}}
 
         <div class="dropdown d-inline-block">
+            <span class="font-weight-bold">{{ Auth::user()->nama }}</span>
             <button type="button" id="page-header-user-dropdown" data-bs-toggle="dropdown">
                 <i class="mdi mdi-chevron-down d-xxl"></i>
             </button>

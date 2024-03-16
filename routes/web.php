@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Laporan\AngkasController;
 use App\Http\Controllers\Laporan\LaporanController;
 use App\Http\Controllers\Laporan\LRAController;
+use App\Http\Controllers\LRAKasda\LRAKasdaController;
 use App\Http\Controllers\master\TandaTanganController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tahun_user\TahunUserController;
@@ -54,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
     //Ganti Password
     Route::post('/updatepassword', [HomeController::class, 'updatepassword'])->name('utility.updatepassword');
 
-
     // Route::prefix('report_anggaran')->group(function () {
     // Laporan Anggaran
     Route::get('reportanggaran', [LaporanController::class, 'index'])->name('laporananggaran.reportanggaran');
@@ -87,4 +87,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('simpandatatandatangan', [TandaTanganController::class, 'simpandatatandatangan'])->name('tandatangan.simpandatatandatangan');
     Route::post('updatedatatandatangan', [TandaTanganController::class, 'updatedatatandatangan'])->name('tandatangan.updatedatatandatangan');
     Route::post('hapusdatatandatangan', [TandaTanganController::class, 'hapusdatatandatangan'])->name('tandatangan.hapusdatatandatangan');
+
+    // Laporan LRA Kasda
+    Route::get('laporanlrakasda', [LRAKasdaController::class, 'index'])->name('laporanlrakasda');
+    Route::post('kasda_kode_skpd', [LRAKasdaController::class, 'kasda_kode_skpd'])->name('kasda_kode_skpd');
+    Route::post('kasda_jns_anggaran', [LRAKasdaController::class, 'kasda_jns_anggaran'])->name('kasda_jns_anggaran');
+    Route::post('kasda_rekening_belanja', [LRAKasdaController::class, 'kasda_rekening_belanja'])->name('kasda_rekening_belanja');
+    Route::get('lrakasda', [LRAKasdaController::class, 'laporanlrakasda'])->name('lrakasda');
 });
