@@ -27,6 +27,7 @@
     </style>
 </head>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <body style="background-image: url('{{ asset('assets/logo/Background_1.jpg') }}')">
     <div class="account-pages my-5 pt-sm-5">
@@ -133,6 +134,16 @@
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+</script>
 
 <!-- Mirrored from themesbrand.com/skote/layouts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 05 Aug 2022 04:38:30 GMT -->
 
