@@ -71,7 +71,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Password</label>
+                                        <label class="form-label">Passworda</label>
                                         <div class="input-group auth-pass-inputgroup">
                                             <input type="password"
                                                 class="form-control
