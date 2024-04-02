@@ -124,7 +124,7 @@
                 $('#checkkegiatan').prop('checked', false);
                 $(".chksubkegiatan").attr("hidden", true);
 
-                // 
+                //
                 $(".skpd").val(null).trigger('change.select2');
                 $(".program").val(null).trigger('change.select2');
                 $(".urusan").val(null).trigger('change.select2');
@@ -152,7 +152,7 @@
                 $(".chkkegiatan").attr("hidden", true);
                 $('#checkkegiatan').prop('checked', false);
                 $(".chksubkegiatan").attr("hidden", true);
-                // 
+                //
                 $(".skpd").val(null).trigger('change.select2');
                 $(".program").val(null).trigger('change.select2');
                 $(".urusan").val(null).trigger('change.select2');
@@ -181,7 +181,7 @@
                 $(".chkkegiatan").attr("hidden", true);
                 $('#checkkegiatan').prop('checked', false);
                 $(".chksubkegiatan").attr("hidden", true);
-                // 
+                //
                 $(".skpd").val(null).trigger('change.select2');
                 $(".program").val(null).trigger('change.select2');
                 $(".urusan").val(null).trigger('change.select2');
@@ -537,6 +537,7 @@
             success: function(data) {
                 $('#ctkjudul').val(data.listdata.judul);
                 $('#ctkno_transaksi').val(data.listdata.no_transaksi);
+                $('#ctk_id_user').val(data.listdata.id_user);
                 let jenis = data.listdata.jenis;
                 if ($('#ctkcheckskpd').val() == jenis) {
                     $('#ctkcheckskpd').prop('checked', true);
@@ -612,6 +613,7 @@
         let ctktgl1 = $('#ctktgl1').val();
         let ctktgl2 = $('#ctktgl2').val();
         let ctkno_transaksi = $('#ctkno_transaksi').val();
+        let ctkid_user = $('#ctk_id_user').val();
         let ttd = $('.ctkttd').val();
         let tglttd = $('#tglttd').val();
 
@@ -645,7 +647,7 @@
                 '&jns_cetak=' +
                 jeniscetak +
                 '&periode1=' + ctktgl1 + '&dan' + '&periode2=' + ctktgl2 + '&no_transaksi=' + ctkno_transaksi +
-                '&rincian_data=' + kode_data;
+                '&rincian_data=' + kode_data + '&id_user=' + ctkid_user;
             let lemparan = xr + request;
             window.open(lemparan, "_blank");
         } else if ($("#ctkcheckurusan").is(":checked") == true) {
@@ -659,7 +661,7 @@
             let request = '?jns_ang=' + ctkjns_anggaran + '&ttd=' + ttd + '&tglttd=' + tglttd + '&jenis=' + jenis +
                 '&jns_cetak=' + jeniscetak +
                 '&periode1=' + ctktgl1 + '&dan' + '&periode2=' + ctktgl2 + '&no_transaksi=' + ctkno_transaksi +
-                '&rincian_data=' + kode_data;
+                '&rincian_data=' + kode_data + '&id_user=' + ctkid_user;
             let lemparan = xr + request;
             window.open(lemparan, "_blank");
         } else if ($("#ctkcheckprogram").is(":checked") == true) {
@@ -673,7 +675,7 @@
             let request = '?jns_ang=' + ctkjns_anggaran + '&ttd=' + ttd + '&tglttd=' + tglttd + '&jenis=' + jenis +
                 '&jns_cetak=' + jeniscetak +
                 '&periode1=' + ctktgl1 + '&dan' + '&periode2=' + ctktgl2 + '&no_transaksi=' + ctkno_transaksi +
-                '&rincian_data=' + kode_data;
+                '&rincian_data=' + kode_data + '&id_user=' + ctkid_user;
             let lemparan = xr + request;
             window.open(lemparan, "_blank");
         } else if ($("#ctkcheckkegiatan").is(":checked") == true) {
@@ -687,7 +689,7 @@
             let request = '?jns_ang=' + ctkjns_anggaran + '&ttd=' + ttd + '&tglttd=' + tglttd + '&jenis=' + jenis +
                 '&jns_cetak=' + jeniscetak +
                 '&periode1=' + ctktgl1 + '&dan' + '&periode2=' + ctktgl2 + '&no_transaksi=' + ctkno_transaksi +
-                '&rincian_data=' + kode_data;
+                '&rincian_data=' + kode_data + '&id_user=' + ctkid_user;
             let lemparan = xr + request;
             window.open(lemparan, "_blank");
         }

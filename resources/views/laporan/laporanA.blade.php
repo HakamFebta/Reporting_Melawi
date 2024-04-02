@@ -24,6 +24,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width:10px;">No</th>
+                                        <th style="width:50px;" hidden>Id User</th>
                                         <th style="width:50px;">No Transaksi</th>
                                         <th style="width:100px;">Judul</th>
                                         <th style="width:10px;">Jenis</th>
@@ -523,6 +524,7 @@
                 </div>
                 {{-- View Cetak --}}
                 <input type="text" class="form-control" id="ctkno_transaksi" hidden>
+                <input type="text" class="form-control" id="ctk_id_user" hidden>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xl-12">
@@ -535,6 +537,7 @@
                                                     <input class="form-check-input" value="SUBKEGIATAN" type="checkbox"
                                                         name="checkbox" id="ctkcheckskpd" disabled="true">
                                                     <label class="form-check-label">Sub Kegiatan</label>
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 mb-3">
@@ -750,6 +753,11 @@
                         name: 'DT_RowIndex',
                     },
                     {
+                        data: 'id_user',
+                        name: 'id_user',
+                        visible: false
+                    },
+                    {
                         data: 'no_transaksi',
                         name: 'no_transaksi',
                     },
@@ -782,7 +790,7 @@
                 $('#checkkegiatan').prop('checked', false);
                 // Judul
                 $("#judul").val('');
-                // 
+                //
                 $(".skpd").val(null).trigger('change.select2');
                 $(".program").val(null).trigger('change.select2');
                 $(".urusan").val(null).trigger('change.select2');
