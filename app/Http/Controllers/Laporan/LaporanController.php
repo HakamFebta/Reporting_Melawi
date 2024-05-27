@@ -37,7 +37,7 @@ class LaporanController extends Controller
             'tandatangan' => DB::connection($status_sistem->con_sistem_pertama)->table('master_ttd')
                 ->get(),
         ];
-        return view('Laporan.laporanA')->with($data);
+        return view('laporan.laporanA')->with($data);
     }
 
     function listdata()
