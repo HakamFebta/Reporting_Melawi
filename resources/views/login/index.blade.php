@@ -7,12 +7,12 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | Reporting</title>
+    <title>Login | SisKeu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Reporting Melawi" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/logo/RM_MELAWI.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/logo/SisKeu_new.png') }}">
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
