@@ -132,7 +132,7 @@ class LRAKasdaController extends Controller
                     ->setOption('margin-left', '12')
                     ->setOption('margin-right', '10');
                 // ->setOption('font-html', 'Times New Roman');
-                $pdf->setOption('footer-right', "Reporting Melawi -- Page [page] of [toPage]");
+                $pdf->setOption('footer-right', "SisKeu Melawi -- Page [page] of [toPage]");
                 return $pdf->stream('Laporan_Realisasi.pdf');
                 break;
             case "excel":

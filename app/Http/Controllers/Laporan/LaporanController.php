@@ -243,7 +243,7 @@ class LaporanController extends Controller
                         ->setOption('margin-left', '12')
                         ->setOption('margin-right', '10');
                     // ->setOption('font-html', 'Times New Roman');
-                    $pdf->setOption('footer-right', "Reporting Melawi -- Page [page] of [toPage]");
+                    $pdf->setOption('footer-right', "SisKeu Melawi -- Page [page] of [toPage]");
                     return $pdf->stream('SubKegiatan.pdf');
                 } else {
                     $mpdf = new PDFA([
@@ -298,7 +298,7 @@ class LaporanController extends Controller
                 //         ->setOption('margin-top', 10)
                 //         ->setOption('margin-bottom', 18)
                 //         ->setOption('margin-left', 8)
-                //         ->setOption('footer-right', "Reporting Melawi -- Page [page] of [toPage]");
+                //         ->setOption('footer-right', "SisKeu Melawi -- Page [page] of [toPage]");
                 //     return $pdf->stream('SubKegiatan.pdf');
                 // } else {
                 //     $data = view('laporan.cetakan.subkegiatanpdf.jumlahindex', $hasil);
@@ -312,7 +312,7 @@ class LaporanController extends Controller
                 //     $pdf->setOption('margin-top', 10);
                 //     $pdf->setOption('margin-bottom', 18);
                 //     $pdf->setOption('margin-left', 8);
-                //     $pdf->setOption('footer-right', "Reporting Melawi -- Page [page] of [toPage]");
+                //     $pdf->setOption('footer-right', "SisKeu Melawi -- Page [page] of [toPage]");
                 //     return $pdf->stream('SubKegiatan.pdf');
                 // }
                 break;

@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-6">
             <div class="text-sm-end d-none d-sm-block">
-                Pengembang By © '8_1_11_1_13' :)
+                &diams; Dikembangkan By CV. Cemerlang Sumber Abadi 🛎️
             </div>
         </div>
     </div>

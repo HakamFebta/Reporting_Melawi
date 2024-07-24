@@ -1,5 +1,5 @@
 @extends('layout.template')
-@section('title', 'List User | Reporting Melawi')
+@section('title', 'List User | SisKeu')
 @section('content')
     <style>
         .table.dataTable {

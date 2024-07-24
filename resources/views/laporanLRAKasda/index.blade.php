@@ -1,5 +1,5 @@
 @extends('layout.template')
-@section('title', 'Laporan LRA Kasda')
+@section('title', 'Laporan LRA Kasda || SisKeu')
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="page-content">

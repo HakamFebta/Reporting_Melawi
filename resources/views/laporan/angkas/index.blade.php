@@ -1,5 +1,5 @@
 @extends('layout.template')
-@section('title', 'Anggaran Kas | Reporting Melawi')
+@section('title', 'Anggaran Kas | Siskeu')
 @section('content')
     <div class="page-content">
 
