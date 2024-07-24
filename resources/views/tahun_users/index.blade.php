@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Tahun Anggaran | Reporting</title>
+    <title>Tahun Anggaran | SisKeu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Reporting" name="description" />
     <meta content="Themesbrand" name="author" />
