@@ -180,7 +180,9 @@ function dashboard_tahun()
     } elseif ($hasil->tahun == '2024') {
         $con_sistem_pertama = 'sistem_2024';
         $con_sistem_kedua = 'sistemkedua_2024';
-    } else {
+    } elseif ($hasil->tahun == '2025') {
+        $con_sistem_pertama = 'sistem_2025';
+        $con_sistem_kedua = 'sistemkedua_2025';
     }
     return response()->json([
         'tahun' => $hasil->tahun,
