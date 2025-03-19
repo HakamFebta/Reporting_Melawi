@@ -83,7 +83,8 @@
                                             2025
                                         </span>
                                     </div>
-                                    <button type="button" class="btn btn-outline-primary" value="2025">Masuk</button>
+                                    <button type="button" id="tahun" name="tahun" value="2025"
+                                    class="btn btn-outline-primary">Masuk</button>
                                 </div>
                             </div>
                         </div>
