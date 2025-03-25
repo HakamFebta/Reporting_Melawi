@@ -131,10 +131,9 @@ class LaporanController extends Controller
             $data = $request->data;
             $username = Auth::user()->username;
             $id_user = Auth::user()->id_user;
-            DB::beginTransaction();
-            // DB::connection('sqlsrv')->statement(DB::raw('LOCK TABLES header_laporan WRITE'));
             DB::connection($status_sistem->con_sistem_pertama)->table('header_laporan')->raw('LOCK TABLES header_laporan WRITE');
             $nomorurut = DB::connection($status_sistem->con_sistem_pertama)->table('header_laporan')->select(DB::raw('ISNULL(MAX(no_transaksi),0)+1 as no_urut'))->where(['id_user' => $id_user])->first();
+            DB::beginTransaction();
             DB::connection($status_sistem->con_sistem_pertama)->table('header_laporan')->insert([
                 'no_transaksi' => $nomorurut->no_urut,
                 'judul' => $data['judul'],
@@ -143,7 +142,7 @@ class LaporanController extends Controller
                 'username' => $username,
                 'created_at' => date('Y-m-d H:i:s')
             ]);
-            if (isset($data['datatampungan'])) {
+            if (!empty($data['datatampungan'])) {
                 DB::connection($status_sistem->con_sistem_pertama)->table('rincian_header_laporan')->insert(array_map(
                     function ($element) use ($nomorurut, $data, $id_user) {
                         return [
@@ -482,8 +481,8 @@ class LaporanController extends Controller
             $data = $request->data;
             $username = Auth::user()->username;
             $id_user = Auth::user()->id_user;
-            DB::beginTransaction();
             $nomorurut = $data['no_transaksi'];
+            DB::beginTransaction();
             DB::connection($status_sistem->con_sistem_pertama)->table('header_laporan')
                 ->where(['no_transaksi' => $data['no_transaksi'], 'id_user' => $id_user])
                 ->update([
@@ -494,8 +493,8 @@ class LaporanController extends Controller
                 ]);
             // return;
             DB::connection($status_sistem->con_sistem_pertama)->table('rincian_header_laporan')->where(['no_transaksi' => $data['no_transaksi'], 'id_user' => $id_user])->delete();
-            // return;
-            if (isset($data['datatampungan'])) {
+
+            if (!empty($data['datatampungan'])) {
                 DB::connection($status_sistem->con_sistem_pertama)->table('rincian_header_laporan')->insert(array_map(
                     function ($element) use ($nomorurut, $data, $id_user) {
                         return [
