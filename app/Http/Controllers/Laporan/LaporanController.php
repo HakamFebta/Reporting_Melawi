@@ -68,6 +68,7 @@ class LaporanController extends Controller
             } elseif ($jenis == '2') {
                 $data = DB::connection($status_sistem->con_sistem_pertama)->table('header_laporan')
                     ->select('no_transaksi', 'judul', 'jenis', 'id_user')
+                    ->orderBy('no_transaksi', 'asc')
                     ->get();
                 return DataTables::of($data)
                     ->addIndexColumn()
@@ -87,6 +88,7 @@ class LaporanController extends Controller
                 $data = DB::connection($status_sistem->con_sistem_pertama)->table('header_laporan')
                     ->select('no_transaksi', 'judul', 'jenis', 'id_user')
                     ->where(['id_user' => $id_user])
+                    ->orderBy('no_transaksi', 'asc')
                     ->get();
                 return DataTables::of($data)
                     ->addIndexColumn()
